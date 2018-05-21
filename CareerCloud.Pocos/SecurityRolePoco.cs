@@ -9,8 +9,22 @@ using System.Threading.Tasks;
 namespace CareerCloud.Pocos
 {
     [Table("Security_Roles")]
-    public class SecurityRolePoco
+    public class SecurityRolePoco : IPoco
     {
+        private Guid id;
+
+        public Guid Id
+        {
+            get
+            {
+                return id;
+            }
+            set
+            {
+                value = id;
+            }
+        }
+
         [Key]
         public Guid Id { get; set; }
         public string Role { get; set; }
