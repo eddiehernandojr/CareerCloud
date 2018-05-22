@@ -13,6 +13,7 @@ namespace CareerCloud.Pocos
     {
         private Guid id;
 
+        [Key]
         public Guid Id
         {
             get
@@ -25,8 +26,8 @@ namespace CareerCloud.Pocos
             }
         }
 
-        [Key]
-        public Guid Id { get; set; }
+        //[Key]
+        //public Guid Id { get; set; }
 
         public Guid Login { get; set; }
 
