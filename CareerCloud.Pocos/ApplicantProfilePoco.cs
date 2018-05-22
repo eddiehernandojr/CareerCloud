@@ -44,16 +44,16 @@ namespace CareerCloud.Pocos
         public string Country { get; set; } //updated from CountryCode to Country
 
         [Column("State_Province_Code")]
-        public string Province { get; set; } //updated from StateProvinceCode to State_Province_Code
+        public string Province { get; set; } //updated from StateProvinceCode to Province
 
         [Column("Street_Address")]
-        public string Street { get; set; } //updated from StreetAddress to Street_Address
+        public string Street { get; set; } //updated from StreetAddress to Street
 
         [Column("City_Town")]
-        public string City { get; set; } //updated from CityTown to City_Town
+        public string City { get; set; } //updated from CityTown to City
 
         [Column("Zip_Postal_Code")]
-        public string PostalCode { get; set; } //updated from ZipPostalCode to Zip_Postal_Code
+        public string PostalCode { get; set; } //updated from ZipPostalCode to PostalCode
 
         [Column("Time_Stamp")]
         public byte[] TimeStamp { get; set; }
