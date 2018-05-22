@@ -28,7 +28,7 @@ namespace CareerCloud.Pocos
 
         //[Key]
         //public Guid Id { get; set; }
-
+        
         public Guid Login { get; set; }
 
         [Column("Current_Salary")]
@@ -41,22 +41,22 @@ namespace CareerCloud.Pocos
         public string Currency { get; set; }
 
         [Column("Country_Code")]
-        public string CountryCode { get; set; }
+        public string Country { get; set; } //updated from CountryCode to Country
 
         [Column("State_Province_Code")]
-        public string StateProvinceCode { get; set; }
+        public string Province { get; set; } //updated from StateProvinceCode to State_Province_Code
 
         [Column("Street_Address")]
-        public string StreetAddress { get; set; }
+        public string Street { get; set; } //updated from StreetAddress to Street_Address
 
         [Column("City_Town")]
-        public string CityTown { get; set; }
+        public string City { get; set; } //updated from CityTown to City_Town
 
         [Column("Zip_Postal_Code")]
-        public string ZipPostalCode { get; set; }
+        public string PostalCode { get; set; } //updated from ZipPostalCode to Zip_Postal_Code
 
         [Column("Time_Stamp")]
         public byte[] TimeStamp { get; set; }
-
+        
     }
 }

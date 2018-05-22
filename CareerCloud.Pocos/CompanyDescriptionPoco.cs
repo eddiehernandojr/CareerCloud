@@ -31,7 +31,8 @@ namespace CareerCloud.Pocos
 
         public Guid Company { get; set; }
 
-        public string LanguageID { get; set; }
+        [Column("LanguageID")]
+        public string LanguageId { get; set; } //updated from LanguageID to LanguageId and added column attribute
 
         [Column("Company_Name")]
         public string CompanyName { get; set; }

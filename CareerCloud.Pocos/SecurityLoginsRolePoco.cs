@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace CareerCloud.Pocos
 {
     [Table("Security_Logins_Roles")]
-    public class SecurityLoginRolePoco : IPoco
+    public class SecurityLoginsRolePoco : IPoco //updated from SecurityLoginRolePoco to SecurityLoginsRolePoco and renamed the class file
     {
         private Guid id;
 
@@ -34,6 +34,6 @@ namespace CareerCloud.Pocos
         public Guid Role { get; set; }
 
         [Column("Time_Stamp")]
-        public byte?[] TimeStamp { get; set; }
+        public byte[] TimeStamp { get; set; } //updated from byte?[] to byte[]
     }
 }

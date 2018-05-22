@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace CareerCloud.Pocos
 {
     [Table("Security_Logins_Log")]
-    public class SecurityLoginLogPoco : IPoco
+    public class SecurityLoginsLogPoco : IPoco //updated from SecurityLoginLogPoco to SecurityLoginsLogPoco as well as renamed the class file
     {
         private Guid id;
 
