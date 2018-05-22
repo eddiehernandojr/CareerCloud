@@ -25,9 +25,6 @@ namespace CareerCloud.Pocos
                 value = id;
             }
         }
-
-        //[Key]
-        //public Guid Id { get; set; }
         
         public Guid Login { get; set; }
 
@@ -36,7 +33,6 @@ namespace CareerCloud.Pocos
 
         [Column("Current_Rate")]
         public decimal? CurrentRate { get; set; }
-
 
         public string Currency { get; set; }
 

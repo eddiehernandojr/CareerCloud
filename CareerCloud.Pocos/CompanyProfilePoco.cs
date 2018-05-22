@@ -26,9 +26,6 @@ namespace CareerCloud.Pocos
             }
         }
 
-        //[Key]
-        //public Guid Id { get; set; }
-
         [Column("Registration_Date")]
         public DateTime RegistrationDate { get; set; }
 

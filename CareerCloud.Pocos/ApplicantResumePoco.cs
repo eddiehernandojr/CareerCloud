@@ -24,10 +24,7 @@ namespace CareerCloud.Pocos
             {
                 value = id;
             }
-        }
-
-        //[Key]
-        //public Guid Id { get; set; }
+        } 
 
         public Guid Applicant { get; set; }
 

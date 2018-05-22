@@ -26,9 +26,6 @@ namespace CareerCloud.Pocos
             }
         }
 
-        //[Key]
-        //public Guid Id { get; set; }
-
         public Guid Applicant { get; set; }
 
         [Column("Company_Name")]
