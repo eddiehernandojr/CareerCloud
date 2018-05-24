@@ -22,7 +22,7 @@ namespace CareerCloud.Pocos
             }
             set
             {
-                value = id;
+                id = value; //updated from value = id to id = value
             }
         } 
 
