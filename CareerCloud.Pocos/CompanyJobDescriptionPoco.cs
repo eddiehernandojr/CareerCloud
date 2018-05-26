@@ -11,18 +11,18 @@ namespace CareerCloud.Pocos
     [Table("Company_Jobs_Descriptions")]
    public class CompanyJobDescriptionPoco : IPoco
     {
-        private Guid id;
+        private Guid _id; //updated from id to _id to follow naming convention
 
         [Key]
         public Guid Id
         {
             get
             {
-                return id;
+                return _id;
             }
             set
             {
-                id = value; //updated from value = id to id = value
+                _id = value; //updated from value = id to id = value
             }
         }
 

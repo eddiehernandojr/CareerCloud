@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CareerCloud.Pocos
 {
-    interface IPoco
+    public interface IPoco //added public access modifier to interface
     {
         Guid Id { get; set; }
     }
