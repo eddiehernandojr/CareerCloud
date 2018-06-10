@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace CareerCloud.ADODataAccessLayer
 {
-    public class ApplicantJobApplicationRepository : BaseADO, IDataRepository<ApplicantJobApplicationPoco>
+    public class ApplicantJobApplicationRepository : BaseADORepository, IDataRepository<ApplicantJobApplicationPoco>
     {
         public void Add(params ApplicantJobApplicationPoco[] items)
         {
@@ -23,7 +23,7 @@ namespace CareerCloud.ADODataAccessLayer
                 foreach (ApplicantJobApplicationPoco poco in items)
                 {
                     cmd.CommandText = @"INSERT INTO [dbo].[Applicant_Job_Applications]
-                     ([Id],[Applicant],[Job],[Application_Date],)
+                     ([Id],[Applicant],[Job],[Application_Date])
                      Values
                      (@Id,@Applicant,@Job,@Application_Date)";
 
@@ -46,7 +46,7 @@ namespace CareerCloud.ADODataAccessLayer
 
         public IList<ApplicantJobApplicationPoco> GetAll(params Expression<Func<ApplicantJobApplicationPoco, object>>[] navigationProperties)
         {
-            ApplicantJobApplicationPoco[] pocos = new ApplicantJobApplicationPoco[1000];
+            ApplicantJobApplicationPoco[] pocos = new ApplicantJobApplicationPoco[1000000];
 
             using (SqlConnection conn = new SqlConnection(_connString))
             {
@@ -61,11 +61,11 @@ namespace CareerCloud.ADODataAccessLayer
                 while (reader.Read())
                 {
                     ApplicantJobApplicationPoco poco = new ApplicantJobApplicationPoco();
-                    poco.Id = reader.GetGuid(0);
-                    poco.Applicant = reader.GetGuid(1);
-                    poco.Job = reader.GetGuid(2);
-                    poco.ApplicationDate = reader.GetDateTime(3);
-                    poco.TimeStamp = (byte[])reader[4];
+                    poco.Id = reader.IsDBNull(0) ? default(Guid) : reader.GetGuid(0);
+                    poco.Applicant = reader.IsDBNull(1) ? default(Guid) : reader.GetGuid(1);
+                    poco.Job = reader.IsDBNull(2) ? default(Guid) : reader.GetGuid(2);
+                    poco.ApplicationDate = reader.IsDBNull(3) ? default(DateTime) : reader.GetDateTime(3);
+                    poco.TimeStamp = reader.IsDBNull(4) ? default(byte[]) : (byte[])reader[4];
 
                     pocos[position] = poco;
                     position++;
@@ -74,7 +74,7 @@ namespace CareerCloud.ADODataAccessLayer
                 conn.Close();
             }
 
-            return pocos;
+            return pocos.Where(p => p != null).ToList();
         }
 
         public IList<ApplicantJobApplicationPoco> GetList(Expression<Func<ApplicantJobApplicationPoco, bool>> where, params Expression<Func<ApplicantJobApplicationPoco, object>>[] navigationProperties)
@@ -120,7 +120,7 @@ namespace CareerCloud.ADODataAccessLayer
                     cmd.CommandText = @"UPDATE [dbo].[Applicant_Job_Applications]
                             SET [Applicant] = @Applicant,
                             [Job] = @Job,
-                            [Application_Date] = @Application_Date, 
+                            [Application_Date] = @Application_Date 
                             WHERE [Id] = @Id";
 
                     cmd.Parameters.AddWithValue("@Applicant", poco.Applicant);

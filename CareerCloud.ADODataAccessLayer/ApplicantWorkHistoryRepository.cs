@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace CareerCloud.ADODataAccessLayer
 {
-    public class ApplicantWorkHistoryRepository : BaseADO, IDataRepository<ApplicantWorkHistoryPoco>
+    public class ApplicantWorkHistoryRepository : BaseADORepository, IDataRepository<ApplicantWorkHistoryPoco>
     {
         public void Add(params ApplicantWorkHistoryPoco[] items)
         {
@@ -55,7 +55,7 @@ namespace CareerCloud.ADODataAccessLayer
 
         public IList<ApplicantWorkHistoryPoco> GetAll(params Expression<Func<ApplicantWorkHistoryPoco, object>>[] navigationProperties)
         {
-            ApplicantWorkHistoryPoco[] pocos = new ApplicantWorkHistoryPoco[1000];
+            ApplicantWorkHistoryPoco[] pocos = new ApplicantWorkHistoryPoco[1000000];
 
             using (SqlConnection conn = new SqlConnection(_connString))
             {
@@ -70,18 +70,18 @@ namespace CareerCloud.ADODataAccessLayer
                 while (reader.Read())
                 {
                     ApplicantWorkHistoryPoco poco = new ApplicantWorkHistoryPoco();
-                    poco.Id = reader.GetGuid(0);
-                    poco.Applicant = reader.GetGuid(1);
-                    poco.CompanyName = reader.GetString(2);
-                    poco.CountryCode = reader.GetString(3);
-                    poco.Location = reader.GetString(4);
-                    poco.JobTitle = reader.GetString(5);
-                    poco.JobDescription = reader.GetString(6);
-                    poco.StartMonth = reader.GetInt16(7);
-                    poco.StartYear = reader.GetInt32(8);
-                    poco.EndMonth = reader.GetInt16(9);
-                    poco.EndYear = reader.GetInt32(10);
-                    poco.TimeStamp = (byte[])reader[11];
+                    poco.Id = reader.IsDBNull(0)? default(Guid) : reader.GetGuid(0);
+                    poco.Applicant = reader.IsDBNull(1) ? default(Guid) : reader.GetGuid(1);
+                    poco.CompanyName = reader.IsDBNull(2) ? default(string) : reader.GetString(2);
+                    poco.CountryCode = reader.IsDBNull(3) ? default(string) : reader.GetString(3);
+                    poco.Location = reader.IsDBNull(4) ? default(string) : reader.GetString(4);
+                    poco.JobTitle = reader.IsDBNull(5) ? default(string) : reader.GetString(5);
+                    poco.JobDescription = reader.IsDBNull(6) ? default(string) : reader.GetString(6);
+                    poco.StartMonth = reader.IsDBNull(7) ? default(short) : reader.GetInt16(7);
+                    poco.StartYear = reader.IsDBNull(8) ? default(int) : reader.GetInt32(8);
+                    poco.EndMonth = reader.IsDBNull(9) ? default(short) : reader.GetInt16(9);
+                    poco.EndYear = reader.IsDBNull(10) ? default(int) : reader.GetInt32(10);
+                    poco.TimeStamp = reader.IsDBNull(11) ? default(byte[]) : (byte[])reader[11];
 
                     pocos[position] = poco;
                     position++;
@@ -90,7 +90,7 @@ namespace CareerCloud.ADODataAccessLayer
                 conn.Close();
             }
 
-            return pocos;
+            return pocos.Where(p => p != null).ToList();
 
         }
 

@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace CareerCloud.ADODataAccessLayer
 {
-    public class CompanyLocationRepository : BaseADO, IDataRepository<CompanyLocationPoco>
+    public class CompanyLocationRepository : BaseADORepository, IDataRepository<CompanyLocationPoco>
     {
         public void Add(params CompanyLocationPoco[] items)
         {
@@ -49,7 +49,7 @@ namespace CareerCloud.ADODataAccessLayer
 
         public IList<CompanyLocationPoco> GetAll(params Expression<Func<CompanyLocationPoco, object>>[] navigationProperties)
         {
-            CompanyLocationPoco[] pocos = new CompanyLocationPoco[1000];
+            CompanyLocationPoco[] pocos = new CompanyLocationPoco[1000000];
 
             using (SqlConnection conn = new SqlConnection(_connString))
             {
@@ -64,14 +64,14 @@ namespace CareerCloud.ADODataAccessLayer
                 while (reader.Read())
                 {
                     CompanyLocationPoco poco = new CompanyLocationPoco();
-                    poco.Id = reader.GetGuid(0);
-                    poco.Company = reader.GetGuid(1);
-                    poco.CountryCode = reader.GetString(2);
-                    poco.Province = reader.GetString(3);
-                    poco.Street = reader.GetString(4);
-                    poco.City = reader.GetString(5);
-                    poco.PostalCode = reader.GetString(6);
-                    poco.TimeStamp = (byte[])reader[7];
+                    poco.Id = reader.IsDBNull(0) ? default(Guid) : reader.GetGuid(0);
+                    poco.Company = reader.IsDBNull(1) ? default(Guid) : reader.GetGuid(1);
+                    poco.CountryCode = reader.IsDBNull(2) ? default(string) : reader.GetString(2);
+                    poco.Province = reader.IsDBNull(3) ? default(string) : reader.GetString(3);
+                    poco.Street = reader.IsDBNull(4) ? default(string) : reader.GetString(4);
+                    poco.City = reader.IsDBNull(5) ? default(string) : reader.GetString(5);
+                    poco.PostalCode = reader.IsDBNull(6) ? default(string) : reader.GetString(6);
+                    poco.TimeStamp = reader.IsDBNull(7) ? default(byte[]) : (byte[])reader[7];
 
                     pocos[position] = poco;
                     position++;
@@ -80,7 +80,7 @@ namespace CareerCloud.ADODataAccessLayer
                 conn.Close();
             }
 
-            return pocos;
+            return pocos.Where(p => p != null).ToList();
         }
 
         public IList<CompanyLocationPoco> GetList(Expression<Func<CompanyLocationPoco, bool>> where, params Expression<Func<CompanyLocationPoco, object>>[] navigationProperties)
@@ -138,7 +138,8 @@ namespace CareerCloud.ADODataAccessLayer
                     cmd.Parameters.AddWithValue("@Street_Address", poco.Street);
                     cmd.Parameters.AddWithValue("@City_Town", poco.City);
                     cmd.Parameters.AddWithValue("@Zip_Postal_Code", poco.PostalCode);
-                    
+                    cmd.Parameters.AddWithValue("@Id", poco.Id);
+
                     conn.Open();
                     cmd.ExecuteNonQuery();
                     conn.Close();

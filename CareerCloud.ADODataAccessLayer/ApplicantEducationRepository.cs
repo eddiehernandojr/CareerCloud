@@ -3,6 +3,7 @@ using CareerCloud.Pocos;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Diagnostics;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace CareerCloud.ADODataAccessLayer
 {
-    public class ApplicantEducationRepository : BaseADO, IDataRepository<ApplicantEducationPoco>
+    public class ApplicantEducationRepository : BaseADORepository, IDataRepository<ApplicantEducationPoco>
     {
         public void Add(params ApplicantEducationPoco[] items)
         {
@@ -18,7 +19,6 @@ namespace CareerCloud.ADODataAccessLayer
             {
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = conn;
-                int rowsEffected = 0;
 
                 foreach (ApplicantEducationPoco poco in items)
                 {
@@ -36,12 +36,11 @@ namespace CareerCloud.ADODataAccessLayer
                     cmd.Parameters.AddWithValue("@Completion_Percent", poco.CompletionPercent);
 
                     conn.Open();
-                    rowsEffected += cmd.ExecuteNonQuery();
+                    cmd.ExecuteNonQuery();
                     conn.Close();
                 }
             }
         }
-
 
         //not included
         public void CallStoredProc(string name, params Tuple<string, string>[] parameters)
@@ -51,7 +50,7 @@ namespace CareerCloud.ADODataAccessLayer
 
         public IList<ApplicantEducationPoco> GetAll(params Expression<Func<ApplicantEducationPoco, object>>[] navigationProperties)
         {
-            ApplicantEducationPoco[] pocos = new ApplicantEducationPoco[1000];
+            ApplicantEducationPoco[] pocos = new ApplicantEducationPoco[1000000];
 
             using (SqlConnection conn = new SqlConnection(_connString))
             {
@@ -66,14 +65,14 @@ namespace CareerCloud.ADODataAccessLayer
                 while (reader.Read())
                 {
                     ApplicantEducationPoco poco = new ApplicantEducationPoco();
-                    poco.Id = reader.GetGuid(0);
-                    poco.Applicant = reader.GetGuid(1);
-                    poco.Major = reader.GetString(2);
-                    poco.CertificateDiploma = reader.GetString(3);
-                    poco.StartDate = (DateTime?)reader[4];
-                    poco.CompletionDate = (DateTime?)reader[5];
-                    poco.CompletionPercent = (byte?)reader[6];
-                    poco.TimeStamp = (byte[])reader[7];
+                    poco.Id = reader.IsDBNull(0) ? default(Guid) : reader.GetGuid(0);
+                    poco.Applicant = reader.IsDBNull(1) ? default(Guid) : reader.GetGuid(1);
+                    poco.Major = reader.IsDBNull(2) ? default(string) : reader.GetString(2);
+                    poco.CertificateDiploma = reader.IsDBNull(3) ? default(string) : reader.GetString(3);
+                    poco.StartDate = reader.IsDBNull(4) ? default(DateTime) : reader.GetDateTime(4);
+                    poco.CompletionDate = reader.IsDBNull(5) ? default(DateTime) : reader.GetDateTime(5);
+                    poco.CompletionPercent = reader.IsDBNull(6) ? default(byte) : reader.GetByte(6);
+                    poco.TimeStamp = reader.IsDBNull(7) ? default(byte[]) : (byte[])reader[7];
 
                     pocos[position] = poco;
                     position++;
@@ -82,7 +81,7 @@ namespace CareerCloud.ADODataAccessLayer
                 conn.Close();
             }
 
-            return pocos;
+            return pocos.Where(p => p != null).ToList();
         }
 
         //not included

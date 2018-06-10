@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace CareerCloud.ADODataAccessLayer
 {
-    public class CompanyDescriptionRepository : BaseADO, IDataRepository<CompanyDescriptionPoco>
+    public class CompanyDescriptionRepository : BaseADORepository, IDataRepository<CompanyDescriptionPoco>
     {
         public void Add(params CompanyDescriptionPoco[] items)
         {
@@ -47,7 +47,7 @@ namespace CareerCloud.ADODataAccessLayer
 
         public IList<CompanyDescriptionPoco> GetAll(params Expression<Func<CompanyDescriptionPoco, object>>[] navigationProperties)
         {
-            CompanyDescriptionPoco[] pocos = new CompanyDescriptionPoco[1000];
+            CompanyDescriptionPoco[] pocos = new CompanyDescriptionPoco[1000000];
 
             using (SqlConnection conn = new SqlConnection(_connString))
             {
@@ -62,12 +62,12 @@ namespace CareerCloud.ADODataAccessLayer
                 while (reader.Read())
                 {
                     CompanyDescriptionPoco poco = new CompanyDescriptionPoco();
-                    poco.Id = reader.GetGuid(0);
-                    poco.Company = reader.GetGuid(1);
-                    poco.LanguageId = reader.GetString(2);
-                    poco.CompanyName = reader.GetString(3);
-                    poco.CompanyDescription = reader.GetString(4);
-                    poco.TimeStamp = (byte[])reader[5];
+                    poco.Id = reader.IsDBNull(0) ? default(Guid) : reader.GetGuid(0);
+                    poco.Company = reader.IsDBNull(1) ? default(Guid) : reader.GetGuid(1);
+                    poco.LanguageId = reader.IsDBNull(2) ? default(string) : reader.GetString(2);
+                    poco.CompanyName = reader.IsDBNull(3) ? default(string) : reader.GetString(3);
+                    poco.CompanyDescription = reader.IsDBNull(4) ? default(string) : reader.GetString(4);
+                    poco.TimeStamp = reader.IsDBNull(5) ? default(byte[]) : (byte[])reader[5];
 
                     pocos[position] = poco;
                     position++;
@@ -76,7 +76,7 @@ namespace CareerCloud.ADODataAccessLayer
                 conn.Close();
             }
 
-            return pocos;
+            return pocos.Where(p => p != null).ToList();
         }
 
         public IList<CompanyDescriptionPoco> GetList(Expression<Func<CompanyDescriptionPoco, bool>> where, params Expression<Func<CompanyDescriptionPoco, object>>[] navigationProperties)
@@ -120,9 +120,9 @@ namespace CareerCloud.ADODataAccessLayer
                 foreach (CompanyDescriptionPoco poco in items)
                 {
                     cmd.CommandText = @"UPDATE [dbo].[Company_Descriptions]
-                            SET [Company] = @Company
-                            [LanguageID] = @LanguageID
-                            [Company_Name] = @Company_Name
+                            SET [Company] = @Company,
+                            [LanguageID] = @LanguageID,
+                            [Company_Name] = @Company_Name,
                             [Company_Description] = @Company_Description
                              WHERE [Id] = @Id";
 

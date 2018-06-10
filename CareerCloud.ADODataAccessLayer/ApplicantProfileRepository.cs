@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace CareerCloud.ADODataAccessLayer
 {
-    public class ApplicantProfileRepository : BaseADO, IDataRepository<ApplicantProfilePoco>
+    public class ApplicantProfileRepository : BaseADORepository, IDataRepository<ApplicantProfilePoco>
     {
         public void Add(params ApplicantProfilePoco[] items)
         {
@@ -54,7 +54,7 @@ namespace CareerCloud.ADODataAccessLayer
 
         public IList<ApplicantProfilePoco> GetAll(params Expression<Func<ApplicantProfilePoco, object>>[] navigationProperties)
         {
-            ApplicantProfilePoco[] pocos = new ApplicantProfilePoco[1000];
+            ApplicantProfilePoco[] pocos = new ApplicantProfilePoco[1000000];
 
             using (SqlConnection conn = new SqlConnection(_connString))
             {
@@ -69,17 +69,17 @@ namespace CareerCloud.ADODataAccessLayer
                 while (reader.Read())
                 {
                     ApplicantProfilePoco poco = new ApplicantProfilePoco();
-                    poco.Id = reader.GetGuid(0);
-                    poco.Login = reader.GetGuid(1);
-                    poco.CurrentSalary = (decimal?)reader[2];
-                    poco.CurrentRate = (decimal?)reader[3];
-                    poco.Currency = reader.GetString(4);
-                    poco.Country = reader.GetString(5);
-                    poco.Province = reader.GetString(6);
-                    poco.Street = reader.GetString(7);
-                    poco.City = reader.GetString(8);
-                    poco.PostalCode = reader.GetString(9);
-                    poco.TimeStamp = (byte[])reader[10];
+                    poco.Id = reader.IsDBNull(0) ? default(Guid) : reader.GetGuid(0);
+                    poco.Login = reader.IsDBNull(1) ? default(Guid) : reader.GetGuid(1);
+                    poco.CurrentSalary = reader.IsDBNull(2) ? default(decimal) : reader.GetDecimal(2);
+                    poco.CurrentRate = reader.IsDBNull(3) ? default(decimal) : reader.GetDecimal(3);
+                    poco.Currency = reader.IsDBNull(4) ? default(string) : reader.GetString(4);
+                    poco.Country = reader.IsDBNull(5) ? default(string) : reader.GetString(5);
+                    poco.Province = reader.IsDBNull(6) ? default(string) : reader.GetString(6);
+                    poco.Street = reader.IsDBNull(7) ? default(string) : reader.GetString(7);
+                    poco.City = reader.IsDBNull(8) ? default(string) : reader.GetString(8);
+                    poco.PostalCode = reader.IsDBNull(9) ? default(string) : reader.GetString(9);
+                    poco.TimeStamp = reader.IsDBNull(10) ? default(byte[]) : (byte[])reader[10];
 
                     pocos[position] = poco;
                     position++;
@@ -88,7 +88,7 @@ namespace CareerCloud.ADODataAccessLayer
                 conn.Close();
             }
 
-            return pocos;
+            return pocos.Where(p => p != null).ToList();
         }
 
         public IList<ApplicantProfilePoco> GetList(Expression<Func<ApplicantProfilePoco, bool>> where, params Expression<Func<ApplicantProfilePoco, object>>[] navigationProperties)
@@ -140,7 +140,7 @@ namespace CareerCloud.ADODataAccessLayer
                             [State_Province_Code] = @State_Province_Code,
                             [Street_Address] = @Street_Address,
                             [City_Town] = @City_Town,
-                            [Zip_Postal_Code] = @Zip_Postal_Code,
+                            [Zip_Postal_Code] = @Zip_Postal_Code
                             WHERE [Id] = @Id";
 
                     cmd.Parameters.AddWithValue("@Login", poco.Login);
@@ -152,6 +152,7 @@ namespace CareerCloud.ADODataAccessLayer
                     cmd.Parameters.AddWithValue("@Street_Address", poco.Street);
                     cmd.Parameters.AddWithValue("@City_Town", poco.City);
                     cmd.Parameters.AddWithValue("@Zip_Postal_Code", poco.PostalCode);
+                    cmd.Parameters.AddWithValue("@Id", poco.Id);
 
                     conn.Open();
                     cmd.ExecuteNonQuery();

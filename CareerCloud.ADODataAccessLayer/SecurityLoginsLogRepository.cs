@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace CareerCloud.ADODataAccessLayer
 {
-    public class SecurityLoginsLogRepository : BaseADO, IDataRepository<SecurityLoginsLogPoco>
+    public class SecurityLoginsLogRepository : BaseADORepository, IDataRepository<SecurityLoginsLogPoco>
     {
         public void Add(params SecurityLoginsLogPoco[] items)
         {
@@ -47,7 +47,7 @@ namespace CareerCloud.ADODataAccessLayer
 
         public IList<SecurityLoginsLogPoco> GetAll(params Expression<Func<SecurityLoginsLogPoco, object>>[] navigationProperties)
         {
-            SecurityLoginsLogPoco[] pocos = new SecurityLoginsLogPoco[1000];
+            SecurityLoginsLogPoco[] pocos = new SecurityLoginsLogPoco[1000000];
 
             using (SqlConnection conn = new SqlConnection(_connString))
             {
@@ -62,11 +62,11 @@ namespace CareerCloud.ADODataAccessLayer
                 while (reader.Read())
                 {
                     SecurityLoginsLogPoco poco = new SecurityLoginsLogPoco();
-                    poco.Id = reader.GetGuid(0);
-                    poco.Login = reader.GetGuid(1);
-                    poco.SourceIP = reader.GetString(2);
-                    poco.LogonDate = reader.GetDateTime(3);
-                    poco.IsSuccesful = reader.GetBoolean(4);
+                    poco.Id = reader.IsDBNull(0) ? default(Guid) : reader.GetGuid(0);
+                    poco.Login = reader.IsDBNull(1) ? default(Guid) : reader.GetGuid(1);
+                    poco.SourceIP = reader.IsDBNull(2) ? default(string) : reader.GetString(2);
+                    poco.LogonDate = reader.IsDBNull(3) ? default(DateTime) : reader.GetDateTime(3);
+                    poco.IsSuccesful = reader.IsDBNull(4) ? default(bool) : reader.GetBoolean(4);
 
                     pocos[position] = poco;
                     position++;
@@ -75,7 +75,7 @@ namespace CareerCloud.ADODataAccessLayer
                 conn.Close();
             }
 
-            return pocos;
+            return pocos.Where(p => p != null).ToList();
         }
 
         public IList<SecurityLoginsLogPoco> GetList(Expression<Func<SecurityLoginsLogPoco, bool>> where, params Expression<Func<SecurityLoginsLogPoco, object>>[] navigationProperties)
@@ -129,6 +129,7 @@ namespace CareerCloud.ADODataAccessLayer
                     cmd.Parameters.AddWithValue("@Source_IP", poco.SourceIP);
                     cmd.Parameters.AddWithValue("@Logon_Date", poco.LogonDate);
                     cmd.Parameters.AddWithValue("@Is_Succesful", poco.IsSuccesful);
+                    cmd.Parameters.AddWithValue("@Id", poco.Id);
 
                     conn.Open();
                     cmd.ExecuteNonQuery();

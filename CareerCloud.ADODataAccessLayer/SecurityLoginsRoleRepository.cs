@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace CareerCloud.ADODataAccessLayer
 {
-    public class SecurityLoginsRoleRepository : BaseADO, IDataRepository<SecurityLoginsRolePoco>
+    public class SecurityLoginsRoleRepository : BaseADORepository, IDataRepository<SecurityLoginsRolePoco>
     {
         public void Add(params SecurityLoginsRolePoco[] items)
         {
@@ -45,7 +45,7 @@ namespace CareerCloud.ADODataAccessLayer
 
         public IList<SecurityLoginsRolePoco> GetAll(params Expression<Func<SecurityLoginsRolePoco, object>>[] navigationProperties)
         {
-            SecurityLoginsRolePoco[] pocos = new SecurityLoginsRolePoco[1000];
+            SecurityLoginsRolePoco[] pocos = new SecurityLoginsRolePoco[1000000];
 
             using (SqlConnection conn = new SqlConnection(_connString))
             {
@@ -60,10 +60,10 @@ namespace CareerCloud.ADODataAccessLayer
                 while (reader.Read())
                 {
                     SecurityLoginsRolePoco poco = new SecurityLoginsRolePoco();
-                    poco.Id = reader.GetGuid(0);
-                    poco.Login = reader.GetGuid(1);
-                    poco.Role = reader.GetGuid(2);
-                    poco.TimeStamp = (byte[])reader[3];
+                    poco.Id = reader.IsDBNull(0) ? default(Guid) : reader.GetGuid(0);
+                    poco.Login = reader.IsDBNull(1) ? default(Guid) : reader.GetGuid(1);
+                    poco.Role = reader.IsDBNull(2) ? default(Guid) : reader.GetGuid(2);
+                    poco.TimeStamp = reader.IsDBNull(3) ? default(byte[]) : (byte[])reader[3];
 
                     pocos[position] = poco;
                     position++;
@@ -72,7 +72,7 @@ namespace CareerCloud.ADODataAccessLayer
                 conn.Close();
             }
 
-            return pocos;
+            return pocos.Where(p => p != null).ToList();
         }
 
         public IList<SecurityLoginsRolePoco> GetList(Expression<Func<SecurityLoginsRolePoco, bool>> where, params Expression<Func<SecurityLoginsRolePoco, object>>[] navigationProperties)
@@ -122,6 +122,7 @@ namespace CareerCloud.ADODataAccessLayer
 
                     cmd.Parameters.AddWithValue("@Login", poco.Login);
                     cmd.Parameters.AddWithValue("@Role", poco.Role);
+                    cmd.Parameters.AddWithValue("@Id", poco.Id);
 
                     conn.Open();
                     cmd.ExecuteNonQuery();

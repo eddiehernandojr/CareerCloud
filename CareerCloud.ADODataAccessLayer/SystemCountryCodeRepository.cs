@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace CareerCloud.ADODataAccessLayer
 {
-    public class SystemCountryCodeRepository : BaseADO, IDataRepository<SystemCountryCodePoco>
+    public class SystemCountryCodeRepository : BaseADORepository, IDataRepository<SystemCountryCodePoco>
     {
         public void Add(params SystemCountryCodePoco[] items)
         {
@@ -44,7 +44,7 @@ namespace CareerCloud.ADODataAccessLayer
 
         public IList<SystemCountryCodePoco> GetAll(params Expression<Func<SystemCountryCodePoco, object>>[] navigationProperties)
         {
-            SystemCountryCodePoco[] pocos = new SystemCountryCodePoco[1000];
+            SystemCountryCodePoco[] pocos = new SystemCountryCodePoco[1000000];
 
             using (SqlConnection conn = new SqlConnection(_connString))
             {
@@ -59,8 +59,8 @@ namespace CareerCloud.ADODataAccessLayer
                 while (reader.Read())
                 {
                     SystemCountryCodePoco poco = new SystemCountryCodePoco();
-                    poco.Code = reader.GetString(0);
-                    poco.Name = reader.GetString(1);
+                    poco.Code = reader.IsDBNull(0) ? default(string) : reader.GetString(0);
+                    poco.Name = reader.IsDBNull(1) ? default(string) : reader.GetString(1);
 
                     pocos[position] = poco;
                     position++;
@@ -69,7 +69,7 @@ namespace CareerCloud.ADODataAccessLayer
                 conn.Close();
             }
 
-            return pocos;
+            return pocos.Where(p => p != null).ToList();
         }
 
         public IList<SystemCountryCodePoco> GetList(Expression<Func<SystemCountryCodePoco, bool>> where, params Expression<Func<SystemCountryCodePoco, object>>[] navigationProperties)
@@ -113,7 +113,7 @@ namespace CareerCloud.ADODataAccessLayer
                 foreach (SystemCountryCodePoco poco in items)
                 {
                     cmd.CommandText = @"UPDATE [dbo].[System_Country_Codes]
-                            SET [Name] = @Name,
+                            SET [Name] = @Name
                              WHERE [Code] = @Code";
 
                     cmd.Parameters.AddWithValue("@Name", poco.Name);

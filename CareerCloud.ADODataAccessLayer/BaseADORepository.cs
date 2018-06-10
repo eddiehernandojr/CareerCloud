@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace CareerCloud.ADODataAccessLayer
 {
-    public abstract class BaseADO
+    public abstract class BaseADORepository
     {
         protected readonly string _connString;
-        public BaseADO()
+        public BaseADORepository()
         {
             _connString = ConfigurationManager.ConnectionStrings["dbconnection"].ConnectionString;
         }

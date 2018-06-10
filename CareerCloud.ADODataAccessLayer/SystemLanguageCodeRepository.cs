@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace CareerCloud.ADODataAccessLayer
 {
-    public class SystemLanguageCodeRepository : BaseADO, IDataRepository<SystemLanguageCodePoco>
+    public class SystemLanguageCodeRepository : BaseADORepository, IDataRepository<SystemLanguageCodePoco>
     {
         public void Add(params SystemLanguageCodePoco[] items)
         {
@@ -45,7 +45,7 @@ namespace CareerCloud.ADODataAccessLayer
 
         public IList<SystemLanguageCodePoco> GetAll(params Expression<Func<SystemLanguageCodePoco, object>>[] navigationProperties)
         {
-            SystemLanguageCodePoco[] pocos = new SystemLanguageCodePoco[1000];
+            SystemLanguageCodePoco[] pocos = new SystemLanguageCodePoco[1000000];
 
             using (SqlConnection conn = new SqlConnection(_connString))
             {
@@ -60,9 +60,9 @@ namespace CareerCloud.ADODataAccessLayer
                 while (reader.Read())
                 {
                     SystemLanguageCodePoco poco = new SystemLanguageCodePoco();
-                    poco.LanguageID = reader.GetString(0);
-                    poco.Name = reader.GetString(1);
-                    poco.NativeName = reader.GetString(2);
+                    poco.LanguageID = reader.IsDBNull(0) ? default(string) : reader.GetString(0);
+                    poco.Name = reader.IsDBNull(1) ? default(string) : reader.GetString(1);
+                    poco.NativeName = reader.IsDBNull(2) ? default(string) : reader.GetString(2);
 
                     pocos[position] = poco;
                     position++;
@@ -71,7 +71,7 @@ namespace CareerCloud.ADODataAccessLayer
                 conn.Close();
             }
 
-            return pocos;
+            return pocos.Where(p => p != null).ToList();
         }
 
         public IList<SystemLanguageCodePoco> GetList(Expression<Func<SystemLanguageCodePoco, bool>> where, params Expression<Func<SystemLanguageCodePoco, object>>[] navigationProperties)

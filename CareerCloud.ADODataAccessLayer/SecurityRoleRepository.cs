@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace CareerCloud.ADODataAccessLayer
 {
-    public class SecurityRoleRepository : BaseADO, IDataRepository<SecurityRolePoco>
+    public class SecurityRoleRepository : BaseADORepository, IDataRepository<SecurityRolePoco>
     {
         public void Add(params SecurityRolePoco[] items)
         {
@@ -45,7 +45,7 @@ namespace CareerCloud.ADODataAccessLayer
 
         public IList<SecurityRolePoco> GetAll(params Expression<Func<SecurityRolePoco, object>>[] navigationProperties)
         {
-            SecurityRolePoco[] pocos = new SecurityRolePoco[1000];
+            SecurityRolePoco[] pocos = new SecurityRolePoco[1000000];
 
             using (SqlConnection conn = new SqlConnection(_connString))
             {
@@ -60,9 +60,9 @@ namespace CareerCloud.ADODataAccessLayer
                 while (reader.Read())
                 {
                     SecurityRolePoco poco = new SecurityRolePoco();
-                    poco.Id = reader.GetGuid(0);
-                    poco.Role = reader.GetString(1);
-                    poco.IsInactive = reader.GetBoolean(2);
+                    poco.Id = reader.IsDBNull(0) ? default(Guid) : reader.GetGuid(0);
+                    poco.Role = reader.IsDBNull(1) ? default(string) : reader.GetString(1);
+                    poco.IsInactive = reader.IsDBNull(2) ? default(bool) : reader.GetBoolean(2);
 
                     pocos[position] = poco;
                     position++;
@@ -71,7 +71,7 @@ namespace CareerCloud.ADODataAccessLayer
                 conn.Close();
             }
 
-            return pocos;
+            return pocos.Where(p => p != null).ToList();
         }
 
         public IList<SecurityRolePoco> GetList(Expression<Func<SecurityRolePoco, bool>> where, params Expression<Func<SecurityRolePoco, object>>[] navigationProperties)
@@ -121,6 +121,7 @@ namespace CareerCloud.ADODataAccessLayer
 
                     cmd.Parameters.AddWithValue("@Role", poco.Role);
                     cmd.Parameters.AddWithValue("@Is_Inactive", poco.IsInactive);
+                    cmd.Parameters.AddWithValue("@Id", poco.Id);
 
                     conn.Open();
                     cmd.ExecuteNonQuery();

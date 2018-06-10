@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace CareerCloud.ADODataAccessLayer
 {
-    public class SecurityLoginRepository : BaseADO, IDataRepository<SecurityLoginPoco>
+    public class SecurityLoginRepository : BaseADORepository, IDataRepository<SecurityLoginPoco>
     {
         public void Add(params SecurityLoginPoco[] items)
         {
@@ -24,7 +24,7 @@ namespace CareerCloud.ADODataAccessLayer
                 {
                     cmd.CommandText = @"INSERT INTO [dbo].[Security_Logins]
                      ([Id],[Login],[Password],[Created_Date],[Password_Update_Date],[Agreement_Accepted_Date],[Is_Locked],
-                     [Is_Inactive],[Email_Address],[Phone_Number],[Full_Name],[Force_Change_Password],[Prefferred_Language]);
+                     [Is_Inactive],[Email_Address],[Phone_Number],[Full_Name],[Force_Change_Password],[Prefferred_Language])
                      Values
                      (@Id,@Login,@Password,@Created_Date,@Password_Update_Date,@Agreement_Accepted_Date, @Is_Locked,
                      @Is_Inactive,@Email_Address,@Phone_Number,@Full_Name,@Force_Change_Password,@Prefferred_Language)";
@@ -57,7 +57,7 @@ namespace CareerCloud.ADODataAccessLayer
 
         public IList<SecurityLoginPoco> GetAll(params Expression<Func<SecurityLoginPoco, object>>[] navigationProperties)
         {
-            SecurityLoginPoco[] pocos = new SecurityLoginPoco[1000];
+            SecurityLoginPoco[] pocos = new SecurityLoginPoco[1000000];
 
             using (SqlConnection conn = new SqlConnection(_connString))
             {
@@ -72,20 +72,20 @@ namespace CareerCloud.ADODataAccessLayer
                 while (reader.Read())
                 {
                     SecurityLoginPoco poco = new SecurityLoginPoco();
-                    poco.Id = reader.GetGuid(0);
-                    poco.Login = reader.GetString(1);
-                    poco.Password = reader.GetString(2);
-                    poco.Created = reader.GetDateTime(3);
-                    poco.PasswordUpdate = (DateTime?)reader[4];
-                    poco.AgreementAccepted = (DateTime?)reader[5];
-                    poco.IsLocked = reader.GetBoolean(6);
-                    poco.IsInactive = reader.GetBoolean(7);
-                    poco.EmailAddress = reader.GetString(8);
-                    poco.PhoneNumber = reader.GetString(9);
-                    poco.FullName = reader.GetString(10);
-                    poco.ForceChangePassword = reader.GetBoolean(8);
-                    poco.PrefferredLanguage = reader.GetString(9);
-                    poco.TimeStamp = (byte[])reader[10];
+                    poco.Id = reader.IsDBNull(0) ? default(Guid) : reader.GetGuid(0);
+                    poco.Login = reader.IsDBNull(1) ? default(string) : reader.GetString(1);
+                    poco.Password = reader.IsDBNull(2) ? default(string) : reader.GetString(2);
+                    poco.Created = reader.IsDBNull(3) ? default(DateTime) : reader.GetDateTime(3);
+                    poco.PasswordUpdate = reader.IsDBNull(4) ? default(DateTime) : reader.GetDateTime(4);
+                    poco.AgreementAccepted = reader.IsDBNull(5) ? default(DateTime) : reader.GetDateTime(5);
+                    poco.IsLocked = reader.IsDBNull(6) ? default(bool) : reader.GetBoolean(6);
+                    poco.IsInactive = reader.IsDBNull(7) ? default(bool) : reader.GetBoolean(7);
+                    poco.EmailAddress = reader.IsDBNull(8) ? default(string) : reader.GetString(8);
+                    poco.PhoneNumber = reader.IsDBNull(9) ? default(string) : reader.GetString(9);
+                    poco.FullName = reader.IsDBNull(10) ? default(string) : reader.GetString(10);
+                    poco.ForceChangePassword = reader.IsDBNull(11) ? default(bool) : reader.GetBoolean(11);
+                    poco.PrefferredLanguage = reader.IsDBNull(12) ? default(string) : reader.GetString(12);
+                    poco.TimeStamp = reader.IsDBNull(13) ? default(byte[]) : (byte[])reader[13];
 
                     pocos[position] = poco;
                     position++;
@@ -94,7 +94,7 @@ namespace CareerCloud.ADODataAccessLayer
                 conn.Close();
             }
 
-            return pocos;
+            return pocos.Where(p => p != null).ToList();
         }
 
         public IList<SecurityLoginPoco> GetList(Expression<Func<SecurityLoginPoco, bool>> where, params Expression<Func<SecurityLoginPoco, object>>[] navigationProperties)

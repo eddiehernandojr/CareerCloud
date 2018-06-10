@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace CareerCloud.ADODataAccessLayer
 {
-    public class CompanyJobDescriptionRepository : BaseADO, IDataRepository<CompanyJobDescriptionPoco>
+    public class CompanyJobDescriptionRepository : BaseADORepository, IDataRepository<CompanyJobDescriptionPoco>
     {
         public void Add(params CompanyJobDescriptionPoco[] items)
         {
@@ -46,7 +46,7 @@ namespace CareerCloud.ADODataAccessLayer
 
         public IList<CompanyJobDescriptionPoco> GetAll(params Expression<Func<CompanyJobDescriptionPoco, object>>[] navigationProperties)
         {
-            CompanyJobDescriptionPoco[] pocos = new CompanyJobDescriptionPoco[1000];
+            CompanyJobDescriptionPoco[] pocos = new CompanyJobDescriptionPoco[1000000];
 
             using (SqlConnection conn = new SqlConnection(_connString))
             {
@@ -61,11 +61,11 @@ namespace CareerCloud.ADODataAccessLayer
                 while (reader.Read())
                 {
                     CompanyJobDescriptionPoco poco = new CompanyJobDescriptionPoco();
-                    poco.Id = reader.GetGuid(0);
-                    poco.Job = reader.GetGuid(1);
-                    poco.JobName = reader.GetString(2);
-                    poco.JobDescriptions = reader.GetString(3);
-                    poco.TimeStamp = (byte[])reader[4];
+                    poco.Id = reader.IsDBNull(0) ? default(Guid) : reader.GetGuid(0);
+                    poco.Job = reader.IsDBNull(1) ? default(Guid) : reader.GetGuid(1);
+                    poco.JobName = reader.IsDBNull(2) ? default(string) : reader.GetString(2);
+                    poco.JobDescriptions = reader.IsDBNull(3) ? default(string) : reader.GetString(3);
+                    poco.TimeStamp = reader.IsDBNull(4) ? default(byte[]) : (byte[])reader[4];
 
                     pocos[position] = poco;
                     position++;
@@ -74,7 +74,7 @@ namespace CareerCloud.ADODataAccessLayer
                 conn.Close();
             }
 
-            return pocos;
+            return pocos.Where(p => p != null).ToList();
         }
 
         public IList<CompanyJobDescriptionPoco> GetList(Expression<Func<CompanyJobDescriptionPoco, bool>> where, params Expression<Func<CompanyJobDescriptionPoco, object>>[] navigationProperties)

@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace CareerCloud.ADODataAccessLayer
 {
-    public class CompanyProfileRepository : BaseADO, IDataRepository<CompanyProfilePoco>
+    public class CompanyProfileRepository : BaseADORepository, IDataRepository<CompanyProfilePoco>
     {
         public void Add(params CompanyProfilePoco[] items)
         {
@@ -48,7 +48,7 @@ namespace CareerCloud.ADODataAccessLayer
 
         public IList<CompanyProfilePoco> GetAll(params Expression<Func<CompanyProfilePoco, object>>[] navigationProperties)
         {
-            CompanyProfilePoco[] pocos = new CompanyProfilePoco[1000];
+            CompanyProfilePoco[] pocos = new CompanyProfilePoco[1000000];
 
             using (SqlConnection conn = new SqlConnection(_connString))
             {
@@ -63,13 +63,13 @@ namespace CareerCloud.ADODataAccessLayer
                 while (reader.Read())
                 {
                     CompanyProfilePoco poco = new CompanyProfilePoco();
-                    poco.Id = reader.GetGuid(0);
-                    poco.RegistrationDate = reader.GetDateTime(1);
-                    poco.CompanyWebsite = reader.GetString(2);
-                    poco.ContactPhone = reader.GetString(3);
-                    poco.ContactName = reader.GetString(4);
-                    poco.CompanyLogo = (byte[])reader[5];
-                    poco.TimeStamp = (byte[])reader[6];
+                    poco.Id = reader.IsDBNull(0) ? default(Guid) : reader.GetGuid(0);
+                    poco.RegistrationDate = reader.IsDBNull(1) ? default(DateTime) : reader.GetDateTime(1);
+                    poco.CompanyWebsite = reader.IsDBNull(2) ? default(string) : reader.GetString(2);
+                    poco.ContactPhone = reader.IsDBNull(3) ? default(string) : reader.GetString(3);
+                    poco.ContactName = reader.IsDBNull(4) ? default(string) : reader.GetString(4);
+                    poco.CompanyLogo = reader.IsDBNull(5) ? default(byte[]) : (byte[])reader[5];
+                    poco.TimeStamp = reader.IsDBNull(5) ? default(byte[]) : (byte[])reader[6];
 
                     pocos[position] = poco;
                     position++;
@@ -78,7 +78,7 @@ namespace CareerCloud.ADODataAccessLayer
                 conn.Close();
             }
 
-            return pocos;
+            return pocos.Where(p => p != null).ToList();
         }
 
         public IList<CompanyProfilePoco> GetList(Expression<Func<CompanyProfilePoco, bool>> where, params Expression<Func<CompanyProfilePoco, object>>[] navigationProperties)
