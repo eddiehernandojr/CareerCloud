@@ -141,7 +141,6 @@ namespace CareerCloud.ADODataAccessLayer
                     cmd.Parameters.AddWithValue("@Completion_Date", poco.CompletionDate);
                     cmd.Parameters.AddWithValue("@Completion_Percent", poco.CompletionPercent);
                     cmd.Parameters.AddWithValue("@Id", poco.Id);
-
                     conn.Open();
                     cmd.ExecuteNonQuery();
                     conn.Close();
