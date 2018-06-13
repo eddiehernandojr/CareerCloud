@@ -61,11 +61,11 @@ namespace CareerCloud.ADODataAccessLayer
                 while (reader.Read())
                 {
                     ApplicantJobApplicationPoco poco = new ApplicantJobApplicationPoco();
-                    poco.Id = reader.IsDBNull(0) ? default(Guid) : reader.GetGuid(0);
-                    poco.Applicant = reader.IsDBNull(1) ? default(Guid) : reader.GetGuid(1);
-                    poco.Job = reader.IsDBNull(2) ? default(Guid) : reader.GetGuid(2);
-                    poco.ApplicationDate = reader.IsDBNull(3) ? default(DateTime) : reader.GetDateTime(3);
-                    poco.TimeStamp = reader.IsDBNull(4) ? default(byte[]) : (byte[])reader[4];
+                    poco.Id = reader.IsDBNull(0) ? Guid.Empty : reader.GetGuid(0);
+                    poco.Applicant = reader.IsDBNull(1) ? Guid.Empty : reader.GetGuid(1);
+                    poco.Job = reader.IsDBNull(2) ? Guid.Empty : reader.GetGuid(2);
+                    poco.ApplicationDate = reader.IsDBNull(3) ? default(DateTime) : reader.GetDateTime(3); //database type is datetime2
+                    poco.TimeStamp = (byte[])reader[4];
 
                     pocos[position] = poco;
                     position++;

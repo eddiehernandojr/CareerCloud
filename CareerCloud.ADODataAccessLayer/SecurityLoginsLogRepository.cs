@@ -62,10 +62,10 @@ namespace CareerCloud.ADODataAccessLayer
                 while (reader.Read())
                 {
                     SecurityLoginsLogPoco poco = new SecurityLoginsLogPoco();
-                    poco.Id = reader.IsDBNull(0) ? default(Guid) : reader.GetGuid(0);
-                    poco.Login = reader.IsDBNull(1) ? default(Guid) : reader.GetGuid(1);
-                    poco.SourceIP = reader.IsDBNull(2) ? default(string) : reader.GetString(2);
-                    poco.LogonDate = reader.IsDBNull(3) ? default(DateTime) : reader.GetDateTime(3);
+                    poco.Id = reader.IsDBNull(0) ? Guid.Empty : reader.GetGuid(0);
+                    poco.Login = reader.IsDBNull(1) ? Guid.Empty : reader.GetGuid(1);
+                    poco.SourceIP = reader.IsDBNull(2) ? null : reader.GetString(2);
+                    poco.LogonDate = reader.IsDBNull(3) ? System.Data.SqlTypes.SqlDateTime.MinValue.Value : reader.GetDateTime(3); //database type is datetime
                     poco.IsSuccesful = reader.IsDBNull(4) ? default(bool) : reader.GetBoolean(4);
 
                     pocos[position] = poco;

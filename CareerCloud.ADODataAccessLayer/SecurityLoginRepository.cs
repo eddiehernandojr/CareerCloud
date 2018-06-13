@@ -72,20 +72,20 @@ namespace CareerCloud.ADODataAccessLayer
                 while (reader.Read())
                 {
                     SecurityLoginPoco poco = new SecurityLoginPoco();
-                    poco.Id = reader.IsDBNull(0) ? default(Guid) : reader.GetGuid(0);
-                    poco.Login = reader.IsDBNull(1) ? default(string) : reader.GetString(1);
-                    poco.Password = reader.IsDBNull(2) ? default(string) : reader.GetString(2);
-                    poco.Created = reader.IsDBNull(3) ? default(DateTime) : reader.GetDateTime(3);
-                    poco.PasswordUpdate = reader.IsDBNull(4) ? default(DateTime) : reader.GetDateTime(4);
-                    poco.AgreementAccepted = reader.IsDBNull(5) ? default(DateTime) : reader.GetDateTime(5);
+                    poco.Id = reader.IsDBNull(0) ? Guid.Empty : reader.GetGuid(0);
+                    poco.Login = reader.IsDBNull(1) ? null : reader.GetString(1);
+                    poco.Password = reader.IsDBNull(2) ? null : reader.GetString(2);
+                    poco.Created = reader.IsDBNull(3) ? default(DateTime) : reader.GetDateTime(3); //database type is datetime2
+                    poco.PasswordUpdate = reader.IsDBNull(4) ? (DateTime?)null : reader.GetDateTime(4);
+                    poco.AgreementAccepted = reader.IsDBNull(5) ? (DateTime?)null : reader.GetDateTime(5);
                     poco.IsLocked = reader.IsDBNull(6) ? default(bool) : reader.GetBoolean(6);
                     poco.IsInactive = reader.IsDBNull(7) ? default(bool) : reader.GetBoolean(7);
-                    poco.EmailAddress = reader.IsDBNull(8) ? default(string) : reader.GetString(8);
-                    poco.PhoneNumber = reader.IsDBNull(9) ? default(string) : reader.GetString(9);
-                    poco.FullName = reader.IsDBNull(10) ? default(string) : reader.GetString(10);
+                    poco.EmailAddress = reader.IsDBNull(8) ? null : reader.GetString(8);
+                    poco.PhoneNumber = reader.IsDBNull(9) ? null : reader.GetString(9);
+                    poco.FullName = reader.IsDBNull(10) ? null : reader.GetString(10);
                     poco.ForceChangePassword = reader.IsDBNull(11) ? default(bool) : reader.GetBoolean(11);
-                    poco.PrefferredLanguage = reader.IsDBNull(12) ? default(string) : reader.GetString(12);
-                    poco.TimeStamp = reader.IsDBNull(13) ? default(byte[]) : (byte[])reader[13];
+                    poco.PrefferredLanguage = reader.IsDBNull(12) ? null : reader.GetString(12);
+                    poco.TimeStamp = (byte[])reader[13];
 
                     pocos[position] = poco;
                     position++;

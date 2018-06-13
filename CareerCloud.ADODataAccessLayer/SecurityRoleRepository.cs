@@ -60,8 +60,8 @@ namespace CareerCloud.ADODataAccessLayer
                 while (reader.Read())
                 {
                     SecurityRolePoco poco = new SecurityRolePoco();
-                    poco.Id = reader.IsDBNull(0) ? default(Guid) : reader.GetGuid(0);
-                    poco.Role = reader.IsDBNull(1) ? default(string) : reader.GetString(1);
+                    poco.Id = reader.IsDBNull(0) ? Guid.Empty : reader.GetGuid(0);
+                    poco.Role = reader.IsDBNull(1) ? null : reader.GetString(1);
                     poco.IsInactive = reader.IsDBNull(2) ? default(bool) : reader.GetBoolean(2);
 
                     pocos[position] = poco;

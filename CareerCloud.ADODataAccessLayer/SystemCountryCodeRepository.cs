@@ -59,8 +59,8 @@ namespace CareerCloud.ADODataAccessLayer
                 while (reader.Read())
                 {
                     SystemCountryCodePoco poco = new SystemCountryCodePoco();
-                    poco.Code = reader.IsDBNull(0) ? default(string) : reader.GetString(0);
-                    poco.Name = reader.IsDBNull(1) ? default(string) : reader.GetString(1);
+                    poco.Code = reader.IsDBNull(0) ? null : reader.GetString(0);
+                    poco.Name = reader.IsDBNull(1) ? null : reader.GetString(1);
 
                     pocos[position] = poco;
                     position++;

@@ -61,9 +61,9 @@ namespace CareerCloud.ADODataAccessLayer
                 while (reader.Read())
                 {
                     ApplicantResumePoco poco = new ApplicantResumePoco();
-                    poco.Id = reader.IsDBNull(0) ? default(Guid) : reader.GetGuid(0);
-                    poco.Applicant = reader.IsDBNull(1) ? default(Guid) : reader.GetGuid(1);
-                    poco.Resume = reader.IsDBNull(2) ? default(string) : reader.GetString(2);
+                    poco.Id = reader.IsDBNull(0) ? Guid.Empty : reader.GetGuid(0);
+                    poco.Applicant = reader.IsDBNull(1) ? Guid.Empty : reader.GetGuid(1);
+                    poco.Resume = reader.IsDBNull(2) ? null : reader.GetString(2);
 
                     if (reader.IsDBNull(3))
                     {

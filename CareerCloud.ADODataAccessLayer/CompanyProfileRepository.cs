@@ -63,13 +63,13 @@ namespace CareerCloud.ADODataAccessLayer
                 while (reader.Read())
                 {
                     CompanyProfilePoco poco = new CompanyProfilePoco();
-                    poco.Id = reader.IsDBNull(0) ? default(Guid) : reader.GetGuid(0);
-                    poco.RegistrationDate = reader.IsDBNull(1) ? default(DateTime) : reader.GetDateTime(1);
-                    poco.CompanyWebsite = reader.IsDBNull(2) ? default(string) : reader.GetString(2);
-                    poco.ContactPhone = reader.IsDBNull(3) ? default(string) : reader.GetString(3);
-                    poco.ContactName = reader.IsDBNull(4) ? default(string) : reader.GetString(4);
-                    poco.CompanyLogo = reader.IsDBNull(5) ? default(byte[]) : (byte[])reader[5];
-                    poco.TimeStamp = reader.IsDBNull(5) ? default(byte[]) : (byte[])reader[6];
+                    poco.Id = reader.IsDBNull(0) ? Guid.Empty : reader.GetGuid(0);
+                    poco.RegistrationDate = reader.IsDBNull(1) ? default(DateTime) : reader.GetDateTime(1); //database type is datetime2
+                    poco.CompanyWebsite = reader.IsDBNull(2) ? null : reader.GetString(2);
+                    poco.ContactPhone = reader.IsDBNull(3) ? null : reader.GetString(3);
+                    poco.ContactName = reader.IsDBNull(4) ? null : reader.GetString(4);
+                    poco.CompanyLogo = reader.IsDBNull(5) ? null : (byte[])reader[5];
+                    poco.TimeStamp = (byte[])reader[6];
 
                     pocos[position] = poco;
                     position++;

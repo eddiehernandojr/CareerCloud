@@ -65,15 +65,15 @@ namespace CareerCloud.ADODataAccessLayer
                 while (reader.Read())
                 {
                     ApplicantSkillPoco poco = new ApplicantSkillPoco();
-                    poco.Id = reader.IsDBNull(0) ? default(Guid) : reader.GetGuid(0);
-                    poco.Applicant = reader.IsDBNull(1) ? default(Guid) : reader.GetGuid(1);
-                    poco.Skill = reader.IsDBNull(2) ? default(string) : reader.GetString(2);
-                    poco.SkillLevel = reader.IsDBNull(3) ? default(string) : reader.GetString(3);
+                    poco.Id = reader.IsDBNull(0) ? Guid.Empty : reader.GetGuid(0);
+                    poco.Applicant = reader.IsDBNull(1) ? Guid.Empty : reader.GetGuid(1);
+                    poco.Skill = reader.IsDBNull(2) ? null : reader.GetString(2);
+                    poco.SkillLevel = reader.IsDBNull(3) ? null : reader.GetString(3);
                     poco.StartMonth = reader.IsDBNull(4) ? default(byte) : reader.GetByte(4);
                     poco.StartYear = reader.IsDBNull(5) ? default(int) : reader.GetInt32(5);
                     poco.EndMonth = reader.IsDBNull(6) ? default(byte) : reader.GetByte(6);
                     poco.EndYear = reader.IsDBNull(7) ? default(int) : reader.GetInt32(7);
-                    poco.TimeStamp = reader.IsDBNull(8) ? default(byte[]) : (byte[])reader[8];
+                    poco.TimeStamp = (byte[])reader[8];
 
                     pocos[position] = poco;
                     position++;

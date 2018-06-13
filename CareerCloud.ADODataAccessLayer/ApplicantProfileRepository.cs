@@ -69,17 +69,17 @@ namespace CareerCloud.ADODataAccessLayer
                 while (reader.Read())
                 {
                     ApplicantProfilePoco poco = new ApplicantProfilePoco();
-                    poco.Id = reader.IsDBNull(0) ? default(Guid) : reader.GetGuid(0);
-                    poco.Login = reader.IsDBNull(1) ? default(Guid) : reader.GetGuid(1);
-                    poco.CurrentSalary = reader.IsDBNull(2) ? default(decimal) : reader.GetDecimal(2);
-                    poco.CurrentRate = reader.IsDBNull(3) ? default(decimal) : reader.GetDecimal(3);
-                    poco.Currency = reader.IsDBNull(4) ? default(string) : reader.GetString(4);
-                    poco.Country = reader.IsDBNull(5) ? default(string) : reader.GetString(5);
-                    poco.Province = reader.IsDBNull(6) ? default(string) : reader.GetString(6);
-                    poco.Street = reader.IsDBNull(7) ? default(string) : reader.GetString(7);
-                    poco.City = reader.IsDBNull(8) ? default(string) : reader.GetString(8);
-                    poco.PostalCode = reader.IsDBNull(9) ? default(string) : reader.GetString(9);
-                    poco.TimeStamp = reader.IsDBNull(10) ? default(byte[]) : (byte[])reader[10];
+                    poco.Id = reader.IsDBNull(0) ? Guid.Empty : reader.GetGuid(0);
+                    poco.Login = reader.IsDBNull(1) ? Guid.Empty : reader.GetGuid(1);
+                    poco.CurrentSalary = reader.IsDBNull(2) ? (decimal?)null : reader.GetDecimal(2);
+                    poco.CurrentRate = reader.IsDBNull(3) ? (decimal?)null : reader.GetDecimal(3);
+                    poco.Currency = reader.IsDBNull(4) ? null : reader.GetString(4);
+                    poco.Country = reader.IsDBNull(5) ? null : reader.GetString(5);
+                    poco.Province = reader.IsDBNull(6) ? null : reader.GetString(6);
+                    poco.Street = reader.IsDBNull(7) ? null : reader.GetString(7);
+                    poco.City = reader.IsDBNull(8) ? null : reader.GetString(8);
+                    poco.PostalCode = reader.IsDBNull(9) ? null : reader.GetString(9);
+                    poco.TimeStamp = (byte[])reader[10];
 
                     pocos[position] = poco;
                     position++;
