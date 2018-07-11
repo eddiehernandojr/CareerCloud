@@ -14,6 +14,6 @@ namespace CareerCloud.BusinessLogicLayer
         {
         }
         
-        //no business rules exits, hence, no implementation of the Verify method
+        //No business rules exists, hence, no implementation of the Add, Update, and Verify methods
     }
 }

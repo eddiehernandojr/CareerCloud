@@ -16,6 +16,16 @@ namespace CareerCloud.BusinessLogicLayer
             _repository = repository;
         }
 
+        public SystemLanguageCodePoco Get(string languageID)
+        {
+            return _repository.GetSingle(c => c.LanguageID == languageID);
+        }
+
+        public List<SystemLanguageCodePoco> GetAll()
+        {
+            return _repository.GetAll().ToList();
+        }
+
         public void Add(SystemLanguageCodePoco[] pocos)
         {
             Verify(pocos);
@@ -57,6 +67,11 @@ namespace CareerCloud.BusinessLogicLayer
                     throw new AggregateException(exceptions);
                 }
             }
+        }
+
+        public void Delete(SystemLanguageCodePoco[] pocos)
+        {
+            _repository.Remove(pocos);
         }
 
     }

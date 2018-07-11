@@ -36,7 +36,7 @@ namespace CareerCloud.BusinessLogicLayer
                     exceptions.Add(new ValidationException(200,
                         $"Major must be at least 2 characters - {poco.Id}"));
 
-                } else if(poco.Major.Length < 2) //verify if it is < 2 or < 3
+                } else if(poco.Major.Length < 2)
                 {
                     exceptions.Add(new ValidationException(200, 
                         $"Major must be at least 2 characters - {poco.Id}"));
