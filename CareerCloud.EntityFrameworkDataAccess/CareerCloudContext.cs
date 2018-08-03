@@ -19,22 +19,7 @@ namespace CareerCloud.EntityFrameworkDataAccess
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             //CompanyProfilePoco
-            modelBuilder.Entity<CompanyProfilePoco>()
-            .Property(e => e.CompanyWebsite)
-            .IsUnicode(false);
-
-            modelBuilder.Entity<CompanyProfilePoco>()
-            .Property(e => e.ContactPhone)
-            .IsUnicode(false);
-
-            modelBuilder.Entity<CompanyProfilePoco>()
-            .Property(e => e.ContactName)
-            .IsUnicode(false);
-
-            modelBuilder.Entity<CompanyProfilePoco>()
-            .Property(e => e.TimeStamp)
-            .IsFixedLength();
-
+            /*********************************************/
             modelBuilder.Entity<CompanyProfilePoco>()
             .HasMany(e => e.CompanyDescriptions)
             .WithRequired(e => e.CompanyProfiles)
@@ -54,10 +39,7 @@ namespace CareerCloud.EntityFrameworkDataAccess
             .WillCascadeOnDelete(false);
 
             //CompanyJobPoco
-            modelBuilder.Entity<CompanyJobPoco>()
-            .Property(e => e.TimeStamp)
-            .IsFixedLength();
-
+            /*********************************************/
             modelBuilder.Entity<CompanyJobPoco>()
             .HasMany(e => e.ApplicantJobApplications)
             .WithRequired(e => e.CompanyJobs)
@@ -83,31 +65,7 @@ namespace CareerCloud.EntityFrameworkDataAccess
             .WillCascadeOnDelete(false);
 
             //SecurityLoginPoco
-            modelBuilder.Entity<SecurityLoginPoco>()
-            .Property(e => e.Login)
-            .IsUnicode(false);
-
-            modelBuilder.Entity<SecurityLoginPoco>()
-            .Property(e => e.Password)
-            .IsUnicode(false);
-
-            modelBuilder.Entity<SecurityLoginPoco>()
-            .Property(e => e.EmailAddress)
-            .IsUnicode(false);
-
-            modelBuilder.Entity<SecurityLoginPoco>()
-            .Property(e => e.PhoneNumber)
-            .IsUnicode(false);
-
-            modelBuilder.Entity<SecurityLoginPoco>()
-            .Property(e => e.PrefferredLanguage)
-            .IsFixedLength()
-            .IsUnicode(false);
-
-            modelBuilder.Entity<SecurityLoginPoco>()
-            .Property(e => e.TimeStamp)
-            .IsFixedLength();
-
+            /*********************************************/
             modelBuilder.Entity<SecurityLoginPoco>()
             .HasMany(e => e.ApplicantProfiles)
             .WithRequired(e => e.SecurityLogins)
@@ -127,10 +85,7 @@ namespace CareerCloud.EntityFrameworkDataAccess
             .WillCascadeOnDelete(false);
 
             //SecurityRolePoco
-            modelBuilder.Entity<SecurityRolePoco>()
-            .Property(e => e.Role)
-            .IsUnicode(false);
-
+            /*********************************************/
             modelBuilder.Entity<SecurityRolePoco>()
             .HasMany(e => e.SecurityLoginsRoles)
             .WithRequired(e => e.SecurityRoles)
@@ -138,11 +93,7 @@ namespace CareerCloud.EntityFrameworkDataAccess
             .WillCascadeOnDelete(false);
 
             //SystemCountryCodePoco
-            modelBuilder.Entity<SystemCountryCodePoco>()
-            .Property(e => e.Code)
-            .IsFixedLength()
-            .IsUnicode(false);
-
+            /*********************************************/
             modelBuilder.Entity<SystemCountryCodePoco>()
             .HasMany(e => e.ApplicantProfiles)
             .WithOptional(e => e.SystemCountryCodes)
@@ -155,34 +106,7 @@ namespace CareerCloud.EntityFrameworkDataAccess
             .WillCascadeOnDelete(false);
 
             //ApplicantProfilePoco
-            modelBuilder.Entity<ApplicantProfilePoco>()
-            .Property(e => e.CurrentSalary)
-            .HasPrecision(18, 0);
-
-            modelBuilder.Entity<ApplicantProfilePoco>()
-            .Property(e => e.Currency)
-            .IsFixedLength()
-            .IsUnicode(false);
-
-            modelBuilder.Entity<ApplicantProfilePoco>()
-            .Property(e => e.Country)
-            .IsFixedLength()
-            .IsUnicode(false);
-
-            modelBuilder.Entity<ApplicantProfilePoco>()
-            .Property(e => e.Province)
-            .IsFixedLength()
-            .IsUnicode(false);
-
-            modelBuilder.Entity<ApplicantProfilePoco>()
-            .Property(e => e.PostalCode)
-            .IsFixedLength()
-            .IsUnicode(false);
-
-            modelBuilder.Entity<ApplicantProfilePoco>()
-            .Property(e => e.TimeStamp)
-            .IsFixedLength();
-
+            /*********************************************/
             modelBuilder.Entity<ApplicantProfilePoco>()
             .HasMany(e => e.ApplicantEducations)
             .WithRequired(e => e.ApplicantProfiles)
