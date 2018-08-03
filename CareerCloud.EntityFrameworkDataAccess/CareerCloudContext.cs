@@ -53,7 +53,6 @@ namespace CareerCloud.EntityFrameworkDataAccess
             .HasForeignKey(e => e.Company)
             .WillCascadeOnDelete(false);
 
-
             //CompanyJobPoco
             modelBuilder.Entity<CompanyJobPoco>()
             .Property(e => e.TimeStamp)
@@ -82,7 +81,6 @@ namespace CareerCloud.EntityFrameworkDataAccess
             .WithRequired(e => e.CompanyJobs)
             .HasForeignKey(e => e.Job)
             .WillCascadeOnDelete(false);
-
 
             //SecurityLoginPoco
             modelBuilder.Entity<SecurityLoginPoco>()
@@ -128,7 +126,6 @@ namespace CareerCloud.EntityFrameworkDataAccess
             .HasForeignKey(e => e.Login)
             .WillCascadeOnDelete(false);
 
-
             //SecurityRolePoco
             modelBuilder.Entity<SecurityRolePoco>()
             .Property(e => e.Role)
@@ -139,7 +136,6 @@ namespace CareerCloud.EntityFrameworkDataAccess
             .WithRequired(e => e.SecurityRoles)
             .HasForeignKey(e => e.Role)
             .WillCascadeOnDelete(false);
-
 
             //SystemCountryCodePoco
             modelBuilder.Entity<SystemCountryCodePoco>()
@@ -157,7 +153,6 @@ namespace CareerCloud.EntityFrameworkDataAccess
             .WithRequired(e => e.SystemCountryCodes)
             .HasForeignKey(e => e.CountryCode)
             .WillCascadeOnDelete(false);
-
 
             //ApplicantProfilePoco
             modelBuilder.Entity<ApplicantProfilePoco>()

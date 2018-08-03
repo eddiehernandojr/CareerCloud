@@ -9,9 +9,8 @@ using System.Threading.Tasks;
 namespace CareerCloud.Pocos
 {
     [Table("Security_Logins_Log")]
-    public class SecurityLoginsLogPoco : IPoco //updated from SecurityLoginLogPoco to SecurityLoginsLogPoco as well as renamed the class file
+    public class SecurityLoginsLogPoco : IPoco
     {
-
         [Key]
         public Guid Id { get; set; }
 
@@ -25,6 +24,7 @@ namespace CareerCloud.Pocos
 
         [Column("Is_Succesful")]
         public bool IsSuccesful { get; set; }
+
         public virtual SecurityLoginPoco SecurityLogins { get; set; }
     }
 }

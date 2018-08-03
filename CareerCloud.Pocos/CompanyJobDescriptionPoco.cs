@@ -11,7 +11,6 @@ namespace CareerCloud.Pocos
     [Table("Company_Jobs_Descriptions")]
    public class CompanyJobDescriptionPoco : IPoco
     {
-
         [Key]
         public Guid Id { get; set; }
 
@@ -21,11 +20,12 @@ namespace CareerCloud.Pocos
         public string JobName { get; set; }
 
         [Column("Job_Descriptions")]
-        public string JobDescriptions { get; set; } //updated from JobDescription to JobDescriptions
+        public string JobDescriptions { get; set; }
 
         [Column("Time_Stamp")]
         [Timestamp]
-        public byte[] TimeStamp { get; set; } //updated from byte?[] to byte[]
+        public byte[] TimeStamp { get; set; }
+
         public virtual CompanyJobPoco CompanyJobs { get; set; }
     }
 }

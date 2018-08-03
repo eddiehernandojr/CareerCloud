@@ -11,7 +11,6 @@ namespace CareerCloud.Pocos
     [Table("Applicant_Profiles")]
     public class ApplicantProfilePoco : IPoco
     {
-
         [Key]
         public Guid Id { get; set; }
         
@@ -26,30 +25,36 @@ namespace CareerCloud.Pocos
         public string Currency { get; set; }
 
         [Column("Country_Code")]
-        public string Country { get; set; } //updated from CountryCode to Country
+        public string Country { get; set; }
 
         [Column("State_Province_Code")]
-        public string Province { get; set; } //updated from StateProvinceCode to Province
+        public string Province { get; set; }
 
         [Column("Street_Address")]
-        public string Street { get; set; } //updated from StreetAddress to Street
+        public string Street { get; set; }
 
         [Column("City_Town")]
-        public string City { get; set; } //updated from CityTown to City
+        public string City { get; set; }
 
         [Column("Zip_Postal_Code")]
-        public string PostalCode { get; set; } //updated from ZipPostalCode to PostalCode
+        public string PostalCode { get; set; }
 
         [Column("Time_Stamp")]
         [Timestamp]
         public byte[] TimeStamp { get; set; }
         
         public virtual ICollection<ApplicantEducationPoco> ApplicantEducations { get; set; }
+
         public virtual ICollection<ApplicantJobApplicationPoco> ApplicantJobApplications { get; set; }
+
         public virtual SecurityLoginPoco SecurityLogins { get; set; }
+
         public virtual SystemCountryCodePoco SystemCountryCodes { get; set; }
+
         public virtual ICollection<ApplicantResumePoco> ApplicantResumes { get; set; }
+
         public virtual ICollection<ApplicantSkillPoco> ApplicantSkills { get; set; }
+
         public virtual ICollection<ApplicantWorkHistoryPoco> ApplicantWorkHistories { get; set; }
     }
 }

@@ -11,13 +11,12 @@ namespace CareerCloud.Pocos
     [Table("Company_Descriptions")]
     public class CompanyDescriptionPoco : IPoco
     {
-
         [Key]
         public Guid Id { get; set; }
         public Guid Company { get; set; }
 
         [Column("LanguageID")]
-        public string LanguageId { get; set; } //updated from LanguageID to LanguageId and added column attribute
+        public string LanguageId { get; set; }
 
         [Column("Company_Name")]
         public string CompanyName { get; set; }
@@ -30,6 +29,7 @@ namespace CareerCloud.Pocos
         public byte[] TimeStamp { get; set; }
 
         public virtual CompanyProfilePoco CompanyProfiles { get; set; }
+
         public virtual SystemLanguageCodePoco SystemLanguageCodes { get; set; }
     }
 }

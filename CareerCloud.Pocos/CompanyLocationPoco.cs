@@ -11,7 +11,6 @@ namespace CareerCloud.Pocos
     [Table("Company_Locations")]
    public class CompanyLocationPoco : IPoco
     {
-
         [Key]
         public Guid Id { get; set; }
         public Guid Company { get; set; }
@@ -20,20 +19,21 @@ namespace CareerCloud.Pocos
         public string CountryCode { get; set; }
 
         [Column("State_Province_Code")]
-        public string Province { get; set; } //updated from StateProvinceCode to Province
+        public string Province { get; set; }
 
         [Column("Street_Address")]
-        public string Street { get; set; } //updated from StreetAddress to Street
+        public string Street { get; set; }
 
         [Column("City_Town")]
-        public string City { get; set; } //updated from CityTown to City
+        public string City { get; set; }
 
         [Column("Zip_Postal_Code")]
-        public string PostalCode { get; set; } //updated from ZipPostalCode to PostalCode
+        public string PostalCode { get; set; }
 
         [Column("Time_Stamp")]
         [Timestamp]
         public byte[] TimeStamp { get; set; }
+
         public virtual CompanyProfilePoco CompanyProfiles { get; set; }
     }
 }

@@ -68,7 +68,6 @@ namespace CareerCloud.EntityFrameworkDataAccess
                 dbQuery = dbQuery.Include<T, object>(navProp);
             }
 
-            //return dbQuery.Where(where).FirstOrDefault();
             return dbQuery.FirstOrDefault(where);
         }
 

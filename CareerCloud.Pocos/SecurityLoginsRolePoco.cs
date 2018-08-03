@@ -9,9 +9,8 @@ using System.Threading.Tasks;
 namespace CareerCloud.Pocos
 {
     [Table("Security_Logins_Roles")]
-    public class SecurityLoginsRolePoco : IPoco //updated from SecurityLoginRolePoco to SecurityLoginsRolePoco and renamed the class file
+    public class SecurityLoginsRolePoco : IPoco
     {
-
         [Key]
         public Guid Id { get; set; }
 
@@ -21,8 +20,11 @@ namespace CareerCloud.Pocos
 
         [Column("Time_Stamp")]
         [Timestamp]
-        public byte[] TimeStamp { get; set; } //updated from byte?[] to byte[]
+
+        public byte[] TimeStamp { get; set; }
+
         public virtual SecurityLoginPoco SecurityLogins { get; set; }
+
         public virtual SecurityRolePoco SecurityRoles { get; set; }
     }
 }

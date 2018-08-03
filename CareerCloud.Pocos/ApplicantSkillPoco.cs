@@ -11,7 +11,6 @@ namespace CareerCloud.Pocos
     [Table("Applicant_Skills")]
     public class ApplicantSkillPoco : IPoco
     {
-
         [Key]
         public Guid Id { get; set; }
 
@@ -37,6 +36,7 @@ namespace CareerCloud.Pocos
         [Column("Time_Stamp")]
         [Timestamp]
         public byte[] TimeStamp { get; set; }
+
         public virtual ApplicantProfilePoco ApplicantProfiles { get; set; }
     }
 }
