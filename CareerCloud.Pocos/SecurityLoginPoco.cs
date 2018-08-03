@@ -11,20 +11,9 @@ namespace CareerCloud.Pocos
     [Table("Security_Logins")]
     public class SecurityLoginPoco : IPoco
     {
-        private Guid _id; //updated from id to _id to follow naming convention
 
         [Key]
-        public Guid Id
-        {
-            get
-            {
-                return _id;
-            }
-            set
-            {
-                _id = value; //updated from value = id to id = value
-            }
-        }
+        public Guid Id { get; set; }
 
         public string Login { get; set; }
 
@@ -61,6 +50,11 @@ namespace CareerCloud.Pocos
         public string PrefferredLanguage { get; set; }
 
         [Column("Time_Stamp")]
+        [Timestamp]
         public byte[] TimeStamp { get; set; }
+
+        public virtual ICollection<ApplicantProfilePoco> ApplicantProfiles { get; set; }
+        public virtual ICollection<SecurityLoginsLogPoco> SecurityLoginsLogs { get; set; }
+        public virtual ICollection<SecurityLoginsRolePoco> SecurityLoginsRoles { get; set; }
     }
 }

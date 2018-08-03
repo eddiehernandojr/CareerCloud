@@ -11,20 +11,9 @@ namespace CareerCloud.Pocos
     [Table("Applicant_Profiles")]
     public class ApplicantProfilePoco : IPoco
     {
-        private Guid _id; //updated from id to _id to follow naming convention
 
         [Key]
-        public Guid Id
-        {
-            get
-            {
-                return _id;
-            }
-            set
-            {
-                _id = value; //updated from value = id to id = value
-            }
-        }
+        public Guid Id { get; set; }
         
         public Guid Login { get; set; }
 
@@ -52,7 +41,15 @@ namespace CareerCloud.Pocos
         public string PostalCode { get; set; } //updated from ZipPostalCode to PostalCode
 
         [Column("Time_Stamp")]
+        [Timestamp]
         public byte[] TimeStamp { get; set; }
         
+        public virtual ICollection<ApplicantEducationPoco> ApplicantEducations { get; set; }
+        public virtual ICollection<ApplicantJobApplicationPoco> ApplicantJobApplications { get; set; }
+        public virtual SecurityLoginPoco SecurityLogins { get; set; }
+        public virtual SystemCountryCodePoco SystemCountryCodes { get; set; }
+        public virtual ICollection<ApplicantResumePoco> ApplicantResumes { get; set; }
+        public virtual ICollection<ApplicantSkillPoco> ApplicantSkills { get; set; }
+        public virtual ICollection<ApplicantWorkHistoryPoco> ApplicantWorkHistories { get; set; }
     }
 }

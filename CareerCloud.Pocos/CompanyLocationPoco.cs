@@ -11,21 +11,9 @@ namespace CareerCloud.Pocos
     [Table("Company_Locations")]
    public class CompanyLocationPoco : IPoco
     {
-        private Guid _id; //updated from id to _id to follow naming convention
 
         [Key]
-        public Guid Id
-        {
-            get
-            {
-                return _id;
-            }
-            set
-            {
-                _id = value; //updated from value = id to id = value
-            }
-        }
-
+        public Guid Id { get; set; }
         public Guid Company { get; set; }
 
         [Column("Country_Code")]
@@ -44,6 +32,8 @@ namespace CareerCloud.Pocos
         public string PostalCode { get; set; } //updated from ZipPostalCode to PostalCode
 
         [Column("Time_Stamp")]
+        [Timestamp]
         public byte[] TimeStamp { get; set; }
+        public virtual CompanyProfilePoco CompanyProfiles { get; set; }
     }
 }

@@ -11,20 +11,9 @@ namespace CareerCloud.Pocos
     [Table("Applicant_Work_History")]
     public class ApplicantWorkHistoryPoco : IPoco
     {
-        private Guid _id; //updated from id to _id to follow naming convention
 
         [Key]
-        public Guid Id
-        {
-            get
-            {
-                return _id;
-            }
-            set
-            {
-                _id = value; //updated from value = id to id = value
-            }
-        }
+        public Guid Id { get; set; }
 
         public Guid Applicant { get; set; }
 
@@ -55,7 +44,10 @@ namespace CareerCloud.Pocos
         public int EndYear { get; set; }
 
         [Column("Time_Stamp")]
+        [Timestamp]
         public byte[] TimeStamp { get; set; }
 
+        public virtual ApplicantProfilePoco ApplicantProfiles { get; set; }
+        public virtual SystemCountryCodePoco SystemCountryCodes { get; set; }
     }
 }

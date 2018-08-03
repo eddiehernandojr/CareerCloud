@@ -10,24 +10,14 @@ namespace CareerCloud.Pocos
 {
     [Table("Security_Roles")]
     public class SecurityRolePoco : IPoco
-    {
-        private Guid _id; //updated from id to _id to follow naming convention
+    {        
 
         [Key]
-        public Guid Id
-        {
-            get
-            {
-                return _id;
-            }
-            set
-            {
-                _id = value; //updated from value = id to id = value
-            }
-        }
+        public Guid Id { get; set; }
 
         public string Role { get; set; }
         [Column("Is_Inactive")]
         public bool IsInactive { get; set; }
+        public virtual ICollection<SecurityLoginsRolePoco> SecurityLoginsRoles { get; set; }
     }
 }

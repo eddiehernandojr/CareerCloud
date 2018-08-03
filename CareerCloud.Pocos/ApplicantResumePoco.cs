@@ -11,20 +11,9 @@ namespace CareerCloud.Pocos
     [Table("Applicant_Resumes")]
     public class ApplicantResumePoco : IPoco
     {
-        private Guid _id; //updated from id to _id to follow naming convention
 
         [Key]
-        public Guid Id
-        {
-            get
-            {
-                return _id;
-            }
-            set
-            {
-                _id = value; //updated from value = id to id = value
-            }
-        } 
+        public Guid Id { get; set; }
 
         public Guid Applicant { get; set; }
 
@@ -32,5 +21,7 @@ namespace CareerCloud.Pocos
 
         [Column("Last_Updated")]
         public DateTime? LastUpdated { get; set; }
+
+        public virtual ApplicantProfilePoco ApplicantProfiles { get; set; }
     }
 }

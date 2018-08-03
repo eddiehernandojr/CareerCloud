@@ -11,20 +11,9 @@ namespace CareerCloud.Pocos
     [Table("Company_Profiles")]
    public class CompanyProfilePoco : IPoco
     {
-        private Guid _id; //updated from id to _id to follow naming convention
 
         [Key]
-        public Guid Id
-        {
-            get
-            {
-                return _id;
-            }
-            set
-            {
-                _id = value; //updated from value = id to id = value
-            }
-        }
+        public Guid Id { get; set; }
 
         [Column("Registration_Date")]
         public DateTime RegistrationDate { get; set; }
@@ -42,6 +31,11 @@ namespace CareerCloud.Pocos
         public byte[] CompanyLogo { get; set; } //updated from byte?[] to byte[]
 
         [Column("Time_Stamp")]
+        [Timestamp]
         public byte[] TimeStamp { get; set; } //updated from byte?[] to byte[]
+
+        public virtual ICollection<CompanyDescriptionPoco> CompanyDescriptions { get; set; }
+        public virtual ICollection<CompanyJobPoco> CompanyJobs { get; set; }
+        public virtual ICollection<CompanyLocationPoco> CompanyLocations { get; set; }
     }
 }

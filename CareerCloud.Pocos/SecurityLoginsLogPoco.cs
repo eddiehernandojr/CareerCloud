@@ -11,20 +11,9 @@ namespace CareerCloud.Pocos
     [Table("Security_Logins_Log")]
     public class SecurityLoginsLogPoco : IPoco //updated from SecurityLoginLogPoco to SecurityLoginsLogPoco as well as renamed the class file
     {
-        private Guid _id; //updated from id to _id to follow naming convention
 
         [Key]
-        public Guid Id
-        {
-            get
-            {
-                return _id;
-            }
-            set
-            {
-                _id = value; //updated from value = id to id = value
-            }
-        }
+        public Guid Id { get; set; }
 
         public Guid Login { get; set; }
 
@@ -36,6 +25,6 @@ namespace CareerCloud.Pocos
 
         [Column("Is_Succesful")]
         public bool IsSuccesful { get; set; }
-
+        public virtual SecurityLoginPoco SecurityLogins { get; set; }
     }
 }

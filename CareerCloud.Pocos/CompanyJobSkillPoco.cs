@@ -11,20 +11,9 @@ namespace CareerCloud.Pocos
     [Table("Company_Job_Skills")]
     public class CompanyJobSkillPoco : IPoco
     {
-        private Guid _id; //updated from id to _id to follow naming convention
 
         [Key]
-        public Guid Id
-        {
-            get
-            {
-                return _id;
-            }
-            set
-            {
-                _id = value; //updated from value = id to id = value
-            }
-        }
+        public Guid Id { get; set; }
 
         public Guid Job { get; set; }
 
@@ -36,6 +25,8 @@ namespace CareerCloud.Pocos
         public int Importance { get; set; }
 
         [Column("Time_Stamp")]
+        [Timestamp]
         public byte[] TimeStamp { get; set; }
+        public virtual CompanyJobPoco CompanyJobs { get; set; }
     }
 }
