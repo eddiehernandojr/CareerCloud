@@ -42,7 +42,6 @@ namespace CareerCloud.ADODataAccessLayer
             }
         }
 
-        //not included
         public void CallStoredProc(string name, params Tuple<string, string>[] parameters)
         {
             throw new NotImplementedException();
@@ -84,7 +83,6 @@ namespace CareerCloud.ADODataAccessLayer
             return pocos.Where(p => p != null).ToList();
         }
 
-        //not included
         public IList<ApplicantEducationPoco> GetList(Expression<Func<ApplicantEducationPoco, bool>> where, params Expression<Func<ApplicantEducationPoco, object>>[] navigationProperties)
         {
             throw new NotImplementedException();

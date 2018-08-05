@@ -137,6 +137,13 @@ namespace CareerCloud.EntityFrameworkDataAccess
             .HasForeignKey(e => e.Applicant)
             .WillCascadeOnDelete(false);
 
+            //SystemLanguageCodePoco - added as of Aug 4, 2018
+            /*********************************************/
+            modelBuilder.Entity<SystemLanguageCodePoco>()
+            .HasMany(e => e.CompanyDescriptions)
+            .WithRequired(e => e.SystemLanguageCodes)
+            .WillCascadeOnDelete(false);
+
             base.OnModelCreating(modelBuilder);
         }
 
