@@ -96,8 +96,10 @@ namespace CareerCloud.EntityFrameworkDataAccess
             /*********************************************/
             modelBuilder.Entity<SystemCountryCodePoco>()
             .HasMany(e => e.ApplicantProfiles)
-            .WithOptional(e => e.SystemCountryCodes)
-            .HasForeignKey(e => e.Country);
+            //.WithOptional(e => e.SystemCountryCodes)
+            .WithRequired(e => e.SystemCountryCodes)        //added as of Aug 5, 2018
+            .HasForeignKey(e => e.Country)
+            .WillCascadeOnDelete(false);                    //added as of Aug 5, 2018
 
             modelBuilder.Entity<SystemCountryCodePoco>()
             .HasMany(e => e.ApplicantWorkHistories)
@@ -142,6 +144,7 @@ namespace CareerCloud.EntityFrameworkDataAccess
             modelBuilder.Entity<SystemLanguageCodePoco>()
             .HasMany(e => e.CompanyDescriptions)
             .WithRequired(e => e.SystemLanguageCodes)
+            .HasForeignKey(e => e.LanguageId)               //added as of Aug 5, 2018
             .WillCascadeOnDelete(false);
 
             base.OnModelCreating(modelBuilder);
