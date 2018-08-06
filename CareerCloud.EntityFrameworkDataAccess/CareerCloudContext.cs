@@ -18,96 +18,7 @@ namespace CareerCloud.EntityFrameworkDataAccess
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            //CompanyProfilePoco
-            /*********************************************/
-            modelBuilder.Entity<CompanyProfilePoco>()
-            .HasMany(e => e.CompanyDescriptions)
-            .WithRequired(e => e.CompanyProfiles)
-            .HasForeignKey(e => e.Company)
-            .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<CompanyProfilePoco>()
-            .HasMany(e => e.CompanyJobs)
-            .WithRequired(e => e.CompanyProfiles)
-            .HasForeignKey(e => e.Company)
-            .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<CompanyProfilePoco>()
-            .HasMany(e => e.CompanyLocations)
-            .WithRequired(e => e.CompanyProfiles)
-            .HasForeignKey(e => e.Company)
-            .WillCascadeOnDelete(false);
-
-            //CompanyJobPoco
-            /*********************************************/
-            modelBuilder.Entity<CompanyJobPoco>()
-            .HasMany(e => e.ApplicantJobApplications)
-            .WithRequired(e => e.CompanyJobs)
-            .HasForeignKey(e => e.Job)
-            .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<CompanyJobPoco>()
-            .HasMany(e => e.CompanyJobEducations)
-            .WithRequired(e => e.CompanyJobs)
-            .HasForeignKey(e => e.Job)
-            .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<CompanyJobPoco>()
-            .HasMany(e => e.CompanyJobSkills)
-            .WithRequired(e => e.CompanyJobs)
-            .HasForeignKey(e => e.Job)
-            .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<CompanyJobPoco>()
-            .HasMany(e => e.CompanyJobDescriptions)
-            .WithRequired(e => e.CompanyJobs)
-            .HasForeignKey(e => e.Job)
-            .WillCascadeOnDelete(false);
-
-            //SecurityLoginPoco
-            /*********************************************/
-            modelBuilder.Entity<SecurityLoginPoco>()
-            .HasMany(e => e.ApplicantProfiles)
-            .WithRequired(e => e.SecurityLogins)
-            .HasForeignKey(e => e.Login)
-            .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<SecurityLoginPoco>()
-            .HasMany(e => e.SecurityLoginsLogs)
-            .WithRequired(e => e.SecurityLogins)
-            .HasForeignKey(e => e.Login)
-            .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<SecurityLoginPoco>()
-            .HasMany(e => e.SecurityLoginsRoles)
-            .WithRequired(e => e.SecurityLogins)
-            .HasForeignKey(e => e.Login)
-            .WillCascadeOnDelete(false);
-
-            //SecurityRolePoco
-            /*********************************************/
-            modelBuilder.Entity<SecurityRolePoco>()
-            .HasMany(e => e.SecurityLoginsRoles)
-            .WithRequired(e => e.SecurityRoles)
-            .HasForeignKey(e => e.Role)
-            .WillCascadeOnDelete(false);
-
-            //SystemCountryCodePoco
-            /*********************************************/
-            modelBuilder.Entity<SystemCountryCodePoco>()
-            .HasMany(e => e.ApplicantProfiles)
-            //.WithOptional(e => e.SystemCountryCodes)
-            .WithRequired(e => e.SystemCountryCodes)        //added as of Aug 5, 2018
-            .HasForeignKey(e => e.Country)
-            .WillCascadeOnDelete(false);                    //added as of Aug 5, 2018
-
-            modelBuilder.Entity<SystemCountryCodePoco>()
-            .HasMany(e => e.ApplicantWorkHistories)
-            .WithRequired(e => e.SystemCountryCodes)
-            .HasForeignKey(e => e.CountryCode)
-            .WillCascadeOnDelete(false);
-
-            //ApplicantProfilePoco
+            //1 - ApplicantProfilePoco
             /*********************************************/
             modelBuilder.Entity<ApplicantProfilePoco>()
             .HasMany(e => e.ApplicantEducations)
@@ -139,12 +50,100 @@ namespace CareerCloud.EntityFrameworkDataAccess
             .HasForeignKey(e => e.Applicant)
             .WillCascadeOnDelete(false);
 
-            //SystemLanguageCodePoco - added as of Aug 4, 2018
+            //2 - CompanyJobPoco
+            /*********************************************/
+            modelBuilder.Entity<CompanyJobPoco>()
+            .HasMany(e => e.ApplicantJobApplications)
+            .WithRequired(e => e.CompanyJobs)
+            .HasForeignKey(e => e.Job)
+            .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<CompanyJobPoco>()
+            .HasMany(e => e.CompanyJobEducations)
+            .WithRequired(e => e.CompanyJobs)
+            .HasForeignKey(e => e.Job)
+            .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<CompanyJobPoco>()
+            .HasMany(e => e.CompanyJobSkills)
+            .WithRequired(e => e.CompanyJobs)
+            .HasForeignKey(e => e.Job)
+            .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<CompanyJobPoco>()
+            .HasMany(e => e.CompanyJobDescriptions)
+            .WithRequired(e => e.CompanyJobs)
+            .HasForeignKey(e => e.Job)
+            .WillCascadeOnDelete(false);
+
+            //3 - CompanyProfilePoco
+            /*********************************************/
+            modelBuilder.Entity<CompanyProfilePoco>()
+            .HasMany(e => e.CompanyDescriptions)
+            .WithRequired(e => e.CompanyProfiles)
+            .HasForeignKey(e => e.Company)
+            .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<CompanyProfilePoco>()
+            .HasMany(e => e.CompanyJobs)
+            .WithRequired(e => e.CompanyProfiles)
+            .HasForeignKey(e => e.Company)
+            .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<CompanyProfilePoco>()
+            .HasMany(e => e.CompanyLocations)
+            .WithRequired(e => e.CompanyProfiles)
+            .HasForeignKey(e => e.Company)
+            .WillCascadeOnDelete(false);
+
+            //4 - SecurityLoginPoco
+            /*********************************************/
+            modelBuilder.Entity<SecurityLoginPoco>()
+            .HasMany(e => e.ApplicantProfiles)
+            .WithRequired(e => e.SecurityLogins)
+            .HasForeignKey(e => e.Login)
+            .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<SecurityLoginPoco>()
+            .HasMany(e => e.SecurityLoginsLogs)
+            .WithRequired(e => e.SecurityLogins)
+            .HasForeignKey(e => e.Login)
+            .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<SecurityLoginPoco>()
+            .HasMany(e => e.SecurityLoginsRoles)
+            .WithRequired(e => e.SecurityLogins)
+            .HasForeignKey(e => e.Login)
+            .WillCascadeOnDelete(false);
+
+            //5 - SecurityRolePoco
+            /*********************************************/
+            modelBuilder.Entity<SecurityRolePoco>()
+            .HasMany(e => e.SecurityLoginsRoles)
+            .WithRequired(e => e.SecurityRoles)
+            .HasForeignKey(e => e.Role)
+            .WillCascadeOnDelete(false);
+
+            //6 - SystemCountryCodePoco
+            /*********************************************/
+            modelBuilder.Entity<SystemCountryCodePoco>()
+            .HasMany(e => e.ApplicantProfiles)
+            .WithRequired(e => e.SystemCountryCodes)
+            .HasForeignKey(e => e.Country)
+            .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<SystemCountryCodePoco>()
+            .HasMany(e => e.ApplicantWorkHistories)
+            .WithRequired(e => e.SystemCountryCodes)
+            .HasForeignKey(e => e.CountryCode)
+            .WillCascadeOnDelete(false);
+
+            //7 - SystemLanguageCodePoco
             /*********************************************/
             modelBuilder.Entity<SystemLanguageCodePoco>()
             .HasMany(e => e.CompanyDescriptions)
             .WithRequired(e => e.SystemLanguageCodes)
-            .HasForeignKey(e => e.LanguageId)               //added as of Aug 5, 2018
+            .HasForeignKey(e => e.LanguageId)
             .WillCascadeOnDelete(false);
 
             base.OnModelCreating(modelBuilder);
