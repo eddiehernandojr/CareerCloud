@@ -20,7 +20,7 @@ namespace SecurityService
         List<SecurityLoginPoco> GetAllSecurityLogin();
 
         [OperationContract]
-        SecurityLoginPoco GetSingleSecurityLogin(Guid Id);
+        SecurityLoginPoco GetSingleSecurityLogin(string Id);
 
         [OperationContract]
         void RemoveSecurityLogin(SecurityLoginPoco[] pocos);
@@ -36,7 +36,7 @@ namespace SecurityService
         List<SecurityLoginsLogPoco> GetAllSecurityLoginsLog();
 
         [OperationContract]
-        SecurityLoginsLogPoco GetSingleSecurityLoginsLog(Guid Id);
+        SecurityLoginsLogPoco GetSingleSecurityLoginsLog(string Id);
 
         [OperationContract]
         void RemoveSecurityLoginsLog(SecurityLoginsLogPoco[] pocos);
@@ -52,7 +52,7 @@ namespace SecurityService
         List<SecurityLoginsRolePoco> GetAllSecurityLoginsRole();
 
         [OperationContract]
-        SecurityLoginsRolePoco GetSingleSecurityLoginsRole(Guid Id);
+        SecurityLoginsRolePoco GetSingleSecurityLoginsRole(string Id);
 
         [OperationContract]
         void RemoveSecurityLoginsRole(SecurityLoginsRolePoco[] pocos);
@@ -68,7 +68,7 @@ namespace SecurityService
         List<SecurityRolePoco> GetAllSecurityRole();
 
         [OperationContract]
-        SecurityRolePoco GetSingleSecurityRole(Guid Id);
+        SecurityRolePoco GetSingleSecurityRole(string Id);
 
         [OperationContract]
         void RemoveSecurityRole(SecurityRolePoco[] pocos);

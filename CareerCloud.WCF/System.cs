@@ -44,18 +44,18 @@ namespace SystemService
         }
 
         //GetSingle
-        public SystemCountryCodePoco GetSingleSystemCountryCode(Guid Id)
+        public SystemCountryCodePoco GetSingleSystemCountryCode(string Id) //changed
         {
             EFGenericRepository<SystemCountryCodePoco> repo = new EFGenericRepository<SystemCountryCodePoco>(false);
             SystemCountryCodeLogic logic = new SystemCountryCodeLogic(repo);
-            return logic.Get(Id.ToString());
+            return logic.Get(Id); //changed
         }
 
-        public SystemLanguageCodePoco GetSingleSystemLanguageCode(Guid Id)
+        public SystemLanguageCodePoco GetSingleSystemLanguageCode(string Id)
         {
             EFGenericRepository<SystemLanguageCodePoco> repo = new EFGenericRepository<SystemLanguageCodePoco>(false);
             SystemLanguageCodeLogic logic = new SystemLanguageCodeLogic(repo);
-            return logic.Get(Id.ToString());
+            return logic.Get(Id);
         }
 
         //Remove

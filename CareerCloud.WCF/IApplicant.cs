@@ -20,7 +20,7 @@ namespace ApplicantService
         List<ApplicantEducationPoco> GetAllApplicantEducation();
 
         [OperationContract]
-        ApplicantEducationPoco GetSingleApplicantEducation(Guid Id); //
+        ApplicantEducationPoco GetSingleApplicantEducation(string Id); //
 
         [OperationContract]
         void RemoveApplicantEducation(ApplicantEducationPoco[] pocos);
@@ -36,7 +36,7 @@ namespace ApplicantService
         List<ApplicantJobApplicationPoco> GetAllApplicantJobApplication();
 
         [OperationContract]
-        ApplicantJobApplicationPoco GetSingleApplicantJobApplication(Guid Id);
+        ApplicantJobApplicationPoco GetSingleApplicantJobApplication(string Id);
 
         [OperationContract]
         void RemoveApplicantJobApplication(ApplicantJobApplicationPoco[] pocos);
@@ -52,7 +52,7 @@ namespace ApplicantService
         List<ApplicantProfilePoco> GetAllApplicantProfile();
 
         [OperationContract]
-        ApplicantProfilePoco GetSingleApplicantProfile(Guid Id);
+        ApplicantProfilePoco GetSingleApplicantProfile(string Id);
 
         [OperationContract]
         void RemoveApplicantProfile(ApplicantProfilePoco[] pocos);
@@ -68,7 +68,7 @@ namespace ApplicantService
         List<ApplicantResumePoco> GetAllApplicantResume();
 
         [OperationContract]
-        ApplicantResumePoco GetSingleApplicantResume(Guid Id);
+        ApplicantResumePoco GetSingleApplicantResume(string Id);
 
         [OperationContract]
         void RemoveApplicantResume(ApplicantResumePoco[] pocos);
@@ -84,7 +84,7 @@ namespace ApplicantService
         List<ApplicantSkillPoco> GetAllApplicantSkill();
 
         [OperationContract]
-        ApplicantSkillPoco GetSingleApplicantSkill(Guid Id);
+        ApplicantSkillPoco GetSingleApplicantSkill(string Id);
 
         [OperationContract]
         void RemoveApplicantSkill(ApplicantSkillPoco[] pocos);
@@ -100,7 +100,7 @@ namespace ApplicantService
         List<ApplicantWorkHistoryPoco> GetAllApplicantWorkHistory();
 
         [OperationContract]
-        ApplicantWorkHistoryPoco GetSingleApplicantWorkHistory(Guid Id);
+        ApplicantWorkHistoryPoco GetSingleApplicantWorkHistory(string Id);
 
         [OperationContract]
         void RemoveApplicantWorkHistory(ApplicantWorkHistoryPoco[] pocos);

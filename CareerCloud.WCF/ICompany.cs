@@ -20,7 +20,7 @@ namespace CompanyService
         List<CompanyDescriptionPoco> GetAllCompanyDescription();
 
         [OperationContract]
-        CompanyDescriptionPoco GetSingleCompanyDescription(Guid Id);
+        CompanyDescriptionPoco GetSingleCompanyDescription(string Id);
 
         [OperationContract]
         void RemoveCompanyDescription(CompanyDescriptionPoco[] pocos);
@@ -36,7 +36,7 @@ namespace CompanyService
         List<CompanyJobDescriptionPoco> GetAllCompanyJobDescription();
 
         [OperationContract]
-        CompanyJobDescriptionPoco GetSingleCompanyJobDescription(Guid Id);
+        CompanyJobDescriptionPoco GetSingleCompanyJobDescription(string Id);
 
         [OperationContract]
         void RemoveCompanyJobDescription(CompanyJobDescriptionPoco[] pocos);
@@ -52,7 +52,7 @@ namespace CompanyService
         List<CompanyJobEducationPoco> GetAllCompanyJobEducation();
 
         [OperationContract]
-        CompanyJobEducationPoco GetSingleCompanyJobEducation(Guid Id);
+        CompanyJobEducationPoco GetSingleCompanyJobEducation(string Id);
 
         [OperationContract]
         void RemoveCompanyJobEducation(CompanyJobEducationPoco[] pocos);
@@ -68,7 +68,7 @@ namespace CompanyService
         List<CompanyJobPoco> GetAllCompanyJob();
 
         [OperationContract]
-        CompanyJobPoco GetSingleCompanyJob(Guid Id);
+        CompanyJobPoco GetSingleCompanyJob(string Id);
 
         [OperationContract]
         void RemoveCompanyJob(CompanyJobPoco[] pocos);
@@ -84,7 +84,7 @@ namespace CompanyService
         List<CompanyJobSkillPoco> GetAllCompanyJobSkill();
 
         [OperationContract]
-        CompanyJobSkillPoco GetSingleCompanyJobSkill(Guid Id);
+        CompanyJobSkillPoco GetSingleCompanyJobSkill(string Id);
 
         [OperationContract]
         void RemoveCompanyJobSkill(CompanyJobSkillPoco[] pocos);
@@ -100,7 +100,7 @@ namespace CompanyService
         List<CompanyLocationPoco> GetAllCompanyLocation();
 
         [OperationContract]
-        CompanyLocationPoco GetSingleCompanyLocation(Guid Id);
+        CompanyLocationPoco GetSingleCompanyLocation(string Id);
 
         [OperationContract]
         void RemoveCompanyLocation(CompanyLocationPoco[] pocos);
@@ -116,7 +116,7 @@ namespace CompanyService
         List<CompanyProfilePoco> GetAllCompanyProfile();
 
         [OperationContract]
-        CompanyProfilePoco GetSingleCompanyProfile(Guid Id);
+        CompanyProfilePoco GetSingleCompanyProfile(string Id); //changed
 
         [OperationContract]
         void RemoveCompanyProfile(CompanyProfilePoco[] pocos);

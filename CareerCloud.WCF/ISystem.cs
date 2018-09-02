@@ -20,7 +20,7 @@ namespace SystemService
         List<SystemCountryCodePoco> GetAllSystemCountryCode();
 
         [OperationContract]
-        SystemCountryCodePoco GetSingleSystemCountryCode(Guid Id);
+        SystemCountryCodePoco GetSingleSystemCountryCode(string Id); //changed
 
         [OperationContract]
         void RemoveSystemCountryCode(SystemCountryCodePoco[] pocos);
@@ -36,7 +36,7 @@ namespace SystemService
         List<SystemLanguageCodePoco> GetAllSystemLanguageCode();
 
         [OperationContract]
-        SystemLanguageCodePoco GetSingleSystemLanguageCode(Guid Id);
+        SystemLanguageCodePoco GetSingleSystemLanguageCode(string Id);
 
         [OperationContract]
         void RemoveSystemLanguageCode(SystemLanguageCodePoco[] pocos);
