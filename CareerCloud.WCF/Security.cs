@@ -7,8 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-//namespace CareerCloud.WCF
-namespace SecurityService
+namespace CareerCloud.WCF
 {
     class Security : ISecurity
     {

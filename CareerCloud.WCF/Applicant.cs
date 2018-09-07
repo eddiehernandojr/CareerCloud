@@ -7,8 +7,7 @@ using CareerCloud.BusinessLogicLayer;
 using CareerCloud.EntityFrameworkDataAccess;
 using CareerCloud.Pocos;
 
-//namespace CareerCloud.WCF
-namespace ApplicantService
+namespace CareerCloud.WCF
 {
     class Applicant : IApplicant
     {

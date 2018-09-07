@@ -6,8 +6,7 @@ using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 
-//namespace CareerCloud.WCF
-namespace SecurityService
+namespace CareerCloud.WCF
 {
     [ServiceContract]
     interface ISecurity

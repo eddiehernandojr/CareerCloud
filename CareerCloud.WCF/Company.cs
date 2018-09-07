@@ -7,8 +7,7 @@ using CareerCloud.BusinessLogicLayer;
 using CareerCloud.EntityFrameworkDataAccess;
 using CareerCloud.Pocos;
 
-//namespace CareerCloud.WCF
-namespace CompanyService
+namespace CareerCloud.WCF
 {
     class Company : ICompany
     {

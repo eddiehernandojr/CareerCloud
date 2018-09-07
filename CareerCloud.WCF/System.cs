@@ -8,8 +8,7 @@ using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 
-//namespace CareerCloud.WCF
-namespace SystemService
+namespace CareerCloud.WCF
 {
     class System : ISystem
     {
